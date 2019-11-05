@@ -1,0 +1,50 @@
+<!--pages/index/mine/zhongyinorder/zhongyin.wxml-->
+<view class="container">
+  <view class="tip">下单成功</view>
+  <view class="service-location" bindtap="openMap" data-name='{{zhongyinserviceitem.short_name}}' id='{{zhongyinserviceitem.address}}'>
+    <image src="{{imgUrl}}/locationtip.png" class="location"></image>
+    <view class="servicename-distance">
+      <text>{{zhongyinserviceitem.address}}</text>
+      <text class="distance">{{zhongyinserviceitem.distance}}km</text>
+    </view>
+    <text class='arrows'></text>
+  </view>
+
+  <view class='serviceshop'>
+    <view class="serviceshop-text" bindtap="todetail">
+      <image src="{{imgUrl}}/shangdian@2x.png"></image>
+      <text class="name" wx:if="{{zhongyinserviceitem.short_name}}">{{zhongyinserviceitem.short_name}}</text>
+      <text class="name" wx:else>{{zhongyinserviceitem.name}}</text>
+      <text class='arrows'></text>
+    </view>
+    <view class='serviceshopinfor'>
+      <image src='{{imgUrl}}/servicelogo.jpg' class='servicelogo' wx:if="{{!serviceface}}"></image>
+      <image src='{{hostName}}/uploads/face/{{serviceface}}' class='servicelogo' wx:else></image>
+      <view class='serviceshop-address'>
+        <text>{{server}}</text>
+        <view class='num'>x1</view>
+      </view>
+      <!-- <view class='pricenum'>
+        <view>RMB</view>
+        <view class='price'>{{platform_price}}</view>
+      </view> -->
+    </view>
+
+    <view class='order-infor line'>
+      <text>订单编号:{{orderno}}</text>
+      <text class='copy_cell' bindtap="copyTBL" id='{{orderno}}'>复制</text>
+    </view>
+    <view class='order-infor'>订单时间:{{ordertime}}</view>
+    <view class='order-infor'>支付方式:保单支付</view>
+  </view>
+
+  <view class="bottom">
+    <view class="cancelorder" bindtap="backpolic">返回保单</view>
+    <view class="cancelorder" bindtap="cancelorder">取消订单</view>
+  </view>
+
+
+
+
+
+</view>

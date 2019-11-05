@@ -1,0 +1,9 @@
+<!--赠送保险一份-->
+<view class="container">
+  <view class="cell">
+    <view class="image-cell">
+      <image  src="{{imgUrl}}/insurance.png"/>
+    </view>
+     <text>敬请期待</text>
+  </view>
+</view>

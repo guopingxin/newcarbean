@@ -1,0 +1,7 @@
+<!--pages/index/mine/zhongyin/zhongyin.wxml-->
+
+<view class="container">
+  <view class="title">订单正在生成中...</view>
+  <view class="time">{{hour1}}:{{min1}}:{{second1}}</view>
+  <image src="{{imgUrl}}/car.gif"></image>
+</view>

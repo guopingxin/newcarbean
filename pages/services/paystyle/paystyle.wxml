@@ -1,0 +1,105 @@
+<!--pages/services/paystyle/paystyle.wxml-->
+<view class='container'> 
+
+  <view class='pay-price'>
+    <view class='price-text'>
+      <view class='circular color1'></view>
+      <view class='circular color2'></view>
+      <text>应付金额:</text>
+    </view>
+    <view>
+      <text>RMB</text>
+      <text class='price-num'>{{money}}</text>
+    </view>  
+  </view>
+
+  <view class='paystyletext'>
+    <view class='line'></view>
+    <view class='paytitle'>
+      <text class='paytitletext'>付款方式</text>
+      <text>TERMS OF PAYMENT</text>
+    </view>
+  </view>
+
+  <view class='payment' bindtap='paystyle' data-index='1'>
+    <image src='{{imgUrl}}/WeChat@2x.png' class='wechatimg'></image>
+    <text>微信支付</text>
+    <!-- <image src='cloud://cheguanjia1-beb14e.6368-cheguanjia1-beb14e/services/checked.png' class='checkimg' wx:if='{{check1}}'></image> -->
+    <span class="demo2" style="background:rgb(63, 175, 11)"  wx:if='{{check1}}'></span>
+    <span class="demo2" style="background:#eee"  wx:else></span>
+    <!-- <image src='cloud://cheguanjia1-beb14e.6368-cheguanjia1-beb14e/services/check.png' class='checkimg' wx:else></image> -->
+  </view>
+
+  <!-- <view class='payment' bindtap='paystyle' data-index='2'>
+    <image src="cloud://cheguanjia1-beb14e.6368-cheguanjia1-beb14e/services/Gold-bean@2x 2.png" class='wechatimg'></image>
+    <text>金豆支付(余额:{{beannum}})</text>
+    <image src='cloud://cheguanjia1-beb14e.6368-cheguanjia1-beb14e/services/checked.png' class='checkimg' wx:if='{{check2}}'></image>
+    <image src='cloud://cheguanjia1-beb14e.6368-cheguanjia1-beb14e/services/check.png' class='checkimg' wx:else></image>
+  </view> -->
+
+  <block wx:for="{{policyInfo}}" wx:key="">
+  <view class='payment' bindtap='paystyle' data-index='3'  data-arrindex="{{index}}"  data-item="{{item}}">
+
+    
+      <image src="{{imgUrl}}/mianfei@2x.png" class='wechatimg'></image>
+    <!-- <text>保单{{index+1}}免费({{equity_num}}次)</text> -->
+
+    <block wx:if="{{item.type == '0'}}">
+    <text>保单1免费({{item.num}}次)</text>
+    </block>
+
+    <block wx:elif="{{item.type == '1'}}">
+    <text>保单2免费({{item.num}}次)</text>
+    </block>
+
+    <block wx:elif="{{item.type == '2'}}">
+    <text>保单3免费({{item.num}}次)</text>
+    </block>
+
+    <block wx:elif="{{item.type == '3'}}">
+    <text>保单4免费({{item.num}}次)</text>
+    </block>
+
+    <block wx:elif="{{item.type == '4'}}">
+    <text>保单5免费({{item.num}}次)</text>
+    </block>
+
+    <block wx:elif="{{item.type == '5'}}">
+    <text>保单6免费({{item.num}}次)</text>
+    </block>
+
+    <block wx:elif="{{item.type == '6'}}">
+    <text>保单7免费({{item.num}}次)</text>
+    </block>
+
+    <block wx:elif="{{item.type == '7'}}">
+    <text>保单8免费({{item.num}}次)</text>
+    </block>
+
+    <block wx:elif="{{item.type == '8'}}">
+    <text>保单9免费({{item.num}}次)</text>
+    </block>
+
+    <block wx:elif="{{item.type == '9'}}">
+    <view>保单10增值服务:{{item1.num}}次</view>
+    </block>
+
+    <block wx:elif="{{item.type == '10'}}">
+    <text>保单11免费({{item.num}}次)</text>
+    </block>
+
+    
+    <!-- <image src='cloud://cheguanjia1-beb14e.6368-cheguanjia1-beb14e/services/checked.png' class='checkimg' wx:if='{{check3}}'></image>
+    <image src='cloud://cheguanjia1-beb14e.6368-cheguanjia1-beb14e/services/check.png' class='checkimg' wx:else></image> -->
+
+    <span class="demo2" style="background:rgb(63, 175, 11)"  wx:if='{{index==arrindex}}'></span>
+    <span class="demo2" style="background:#eee"  wx:else></span>
+    
+    
+  </view>
+
+  </block>
+
+  <view class='surepay' bindtap='surepay'>确认支付</view>
+
+</view>

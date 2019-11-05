@@ -1,0 +1,201 @@
+<!--pages/community/community.wxml-->
+<import src="../../components/community-modal/community.wxml" />
+
+<view class='container'>
+
+  <!-- <my-tab-modal tablist="{{tablist}}" currentTab='{{currentTab}}' bind:send='onSend'/> -->
+
+  <!-- <my-tab-modal tablist="{{tablist}}" currentTab='{{currentTab}}' sidelist='{{sidelist}}' animation="{{animation}}" bind:send='onSend' bind:select='onSelect' /> -->
+
+  <!-- <swiper  class="swiper" current="{{current}}"  bindchange="bindswiperchange" autoplay="{{autoplay}}" circular="{{circular}}"
+  duration="{{duration}}" interval="{{interval}}" easing-function="easeInOutCubic">
+    <block wx:for="{{imgUrls}}" wx:key="" wx:for-index="index">
+      <swiper-item class="swiper-item" wx:if="{{index == current}}">
+        <image src="{{item}}" class="slide-image"></image>
+      </swiper-item>
+      <swiper-item class="swiper-item" wx:else>
+        <image src="{{item}}" class="slide-image1"></image>
+      </swiper-item>
+    </block>
+  </swiper> -->
+
+<view class='swipermode'>
+    <swiper  display-multiple-items='1' circular="{{circular}}" previous-margin='30px' next-margin='30px' bindchange='bindswiperchange' current='{{current}}' autoplay="{{autoplay}}" interval="{{interval}}">
+      <block wx:for="{{imgUrls}}" wx:key='{{index}}'>
+        <swiper-item bindtap="toDetail1" data-dyid="{{item.dynamic_id}}">
+          <view class="box" data-index='{{index}}' animation="{{index == current?animationData:animationData2}}">
+            <image src='{{hostName}}/uploads/community/tweet/{{item.cover}}'></image>
+            <view class='content'>
+              <text>{{item.title}}</text>
+            </view>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+</view>
+
+<view class="category">
+  <view class="baoxian" bindtap="onbaoxian" data-servicestyle='1'>
+    <image src="{{imgUrl}}/icon_baoxian@2x1.png"></image>
+    <text>保险专区</text>
+  </view>
+
+  <view class="baoxian" bindtap="onbaoxian" data-servicestyle='2'>
+    <image src="{{imgUrl}}/icon_diaocha1.png"></image>
+    <text>调查专区</text>
+  </view>
+
+  <view class="baoxian" bindtap="onbaoxian" data-servicestyle='3'>
+    <image src="{{imgUrl}}/icon_lipei1.png"></image>
+    <text>理赔专区</text>
+  </view>
+
+  <view class="baoxian" bindtap="onbaoxian" data-servicestyle='4'>
+    <image src="{{imgUrl}}/icon_renshang1.png"></image>
+    <text>人伤专区</text>
+  </view>
+</view>
+
+
+  <my-tab-modal tablist="{{tablist}}" currentTab='{{currentTab}}' sidelist='{{sidelist}}' animation="{{animation}}" bind:send='onSend' bind:select='onSelect' />
+
+
+  <view class='outMap' wx:if="{{communitymodeshow}}">
+
+    <view class='section'>
+      <template is='dynamicList' data='{{dynamicArr,hostName,islogin,isvoiceplay,dylogo,gesture,centerplay,videohiddle,model}}' />
+      <view class='loading_img_cell' wx:if='{{loadedMore}}'>
+        <image src='{{imgUrl}}/loading.gif'></image>
+      </view>
+      <!-- <view class='noData' wx:if='{{dynamicNull}}'>该地区还没有动态哦，快来发布第一条数据吧~</view> -->
+      <view class='noData' wx:if='{{dynamicNull}}'>
+        <null-modal img="{{imgUrl}}/msg_null.png" text01="暂无动态" width="208" height="250" btnHidden="true" />
+      </view>
+      <view class='noData' wx:if='{{noData}}'>
+        <view class='left-line'></view>
+        <view class='text'>到底啦</view>
+        <view class='right-line'></view>
+      </view>
+    </view>
+    <cover-view class='public' bindtap='openPublic' style='top:{{top}}px;left:{{left}}px;display:{{videostyle}}'>
+      <!-- <cover-image src='cloud://cheguanjia1-beb14e.6368-cheguanjia1-beb14e/community/icon_Release@2x.png'></cover-image> -->
+
+      <cover-image src="/images/icon_Release@2x.png"></cover-image>
+
+    </cover-view>
+  </view>
+
+
+<view wx:else>
+
+  <!-- <cover-view class="swiper-tab">
+    <cover-view wx:for="{{tablist}}" wx:key="index" class="swiper-tab-list {{currentTab==index ? 'active' : ''}}" bindtap='switchnav' data-index='{{index}}'>
+      <cover-view>{{item}}</cover-view>
+      <cover-view class="{{currentTab==index ? 'line' : ''}}"></cover-view>
+    </cover-view>
+  </cover-view> -->
+
+  <map longitude="{{longitude}}" latitude="{{latitude}}" show-location="{{showlocation}}" markers='{{markers}}' bindregionchange="regionchange" id='map'  class="map" bindmarkertap="markerstap" scale="{{mapscale}}"></map>
+
+  <canvas canvas-id='handleCanvas' hidden='true' ></canvas>
+
+  <!-- 控件 -->
+      <cover-image class='scale_icon_add' src='{{imgUrl}}/mapInc.png' bindtap='enlargeMap' hidden='{{setshow}}'></cover-image>
+      <cover-image class='scale_icon_decrease' src='{{imgUrl}}/mapDec.png' bindtap='narrowMap'  hidden='{{setshow}}'></cover-image>
+
+      <cover-image  class="setting" src='{{imgUrl}}/setting.png' bindtap="mylocation"  hidden='{{setshow}}'></cover-image>
+
+   
+
+      <cover-view class='public' bindtap='openPublic' style='top:{{top}}px;left:{{left}}px;display:{{videostyle}}'>
+      <!-- <cover-image src='cloud://cheguanjia1-beb14e.6368-cheguanjia1-beb14e/community/icon_Release@2x.png'></cover-image> -->
+
+      <cover-image src="/images/icon_Release@2x.png"></cover-image>
+
+    </cover-view>
+
+  <!-- <my-location-modal show="{{locationshow}}" bind:hide="hideLoginModal" /> -->
+</view>
+
+
+
+
+
+  <!-- <cover-view class='public_modal' wx:if='{{ifPublic}}' catchtap='closePublic'>
+    <cover-view class='pmodal_content'>
+      <cover-view class='icons'>
+        <cover-view class='icon_cell' bindtap='toPublicText'>
+          <cover-image src='cloud://a-data-1a3ebf.612d-a-data-1a3ebf/community/tt.png'></cover-image>
+        </cover-view>
+        <cover-view class='icon_cell' bindtap='topublicVideo'>
+          <cover-image src='cloud://a-data-1a3ebf.612d-a-data-1a3ebf/community/tt1.png'></cover-image>
+        </cover-view>
+
+        <cover-view class='icon_cell' bindtap='topublicVoice'>
+
+          <cover-image src='cloud://a-data-1a3ebf.612d-a-data-1a3ebf/community/tt2.png'></cover-image>
+
+        </cover-view>
+      </cover-view>
+      <cover-view class='close' catchtap='closePublic'>
+        <cover-image src='cloud://a-data-1a3ebf.612d-a-data-1a3ebf/community/close.png'></cover-image>
+      </cover-view>
+    </cover-view>
+  </cover-view> -->
+
+  <cover-view class='public_modal' wx:if='{{ifPublic}}' catchtap='closePublic'>
+
+    <cover-view class="public_content1">
+      <cover-view class="fabu_whole">
+        <cover-view class="fabu_style">
+        <cover-view class="fabu_item" bindtap="toPublicText" data-eventtype='1'>
+          <cover-image src='{{imgUrl}}/icon_baoxian.png'></cover-image>
+          <cover-view>保险</cover-view>
+        </cover-view>
+
+        <cover-view class="fabu_item" bindtap="toPublicText" data-eventtype='2'>
+          <cover-image src='{{imgUrl}}/icon_diaocha.png'></cover-image>
+          <cover-view>调查</cover-view>
+        </cover-view>
+
+        <cover-view class="fabu_item" bindtap="toPublicText" data-eventtype='3'>
+          <cover-image src='{{imgUrl}}/icon_lipei.png'></cover-image>
+          <cover-view>理赔</cover-view>
+        </cover-view>
+      </cover-view>
+
+      <cover-view class="fabu_style">
+        <cover-view class="fabu_item" bindtap="toPublicText" data-eventtype='4'>
+          <cover-image src='{{imgUrl}}/icon_renshang.png'></cover-image>
+          <cover-view>人伤</cover-view>
+        </cover-view>
+
+        <cover-view class="fabu_item" bindtap="toPublicText" data-eventtype='5'>
+          <cover-image src='{{imgUrl}}/icon_qita.png'></cover-image>
+          <cover-view>其他</cover-view>
+        </cover-view>
+
+        <cover-view class="fabu_item">
+          <cover-image src=''></cover-image>
+          <cover-view></cover-view>
+          
+        </cover-view>
+
+      </cover-view>
+      </cover-view>
+
+      <cover-image src="/images/icon/icon_del_01.png" class="fabu_close"></cover-image>
+    </cover-view>
+  
+  </cover-view>
+
+  
+  <my-login-modal show="{{showLoginModal}}" bind:hide="hideLoginModal" bind:btnhidden="videohiddle"/>
+  
+  <!-- <my-location-modal show="{{locationshow}}" bind:hide="hideLoginModal"/> -->
+  
+  <my-voice-modal show="{{showVoiceModal}}" bind:refresh="refresh" bind:location="getLocation" mode="动态"/>
+
+  <my-location-modal show="{{locationshow}}" bind:hide="hideLocationModal" />
+</view>
+

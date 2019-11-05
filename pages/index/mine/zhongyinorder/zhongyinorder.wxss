@@ -1,0 +1,170 @@
+/* pages/index/mine/zhongyinorder/zhongyin.wxss */
+.container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tip{
+  width: 100%;
+  height: 220rpx;
+  background: url('http://www.feecgo.com/level/xiadanbg.png') no-repeat left top;
+  background-size: 100% 100%;
+  color: white;
+  font-size: 44rpx;
+  padding: 70rpx;
+}
+
+.arrows{
+  width: 18rpx;
+  height: 18rpx;
+  border-top: 3rpx solid #b9b9b9;
+  border-right: 3rpx solid #b9b9b9;
+  transform: rotate(45deg);
+}
+
+.service-location{
+  width: 94%;
+  margin: 14rpx 3%;
+  height: 140rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 20rpx;
+  border-radius: 10rpx;
+  border: 1rpx solid rgba(216, 216, 216, 0.50);
+  box-shadow: 0 0 4rpx 2rpx rgba(216, 216, 216, 0.50); 
+  justify-content: space-between;
+}
+
+.location{
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.servicename-distance{
+  width: 520rpx;
+  display: flex;
+  flex-direction: column;
+  color: #3f3f3f;
+}
+
+.distance{
+  color: #727272;
+}
+
+.serviceshop{
+  box-shadow: 0 0 4rpx 2rpx rgba(216, 216, 216, 0.50);
+  width: 94%;
+  margin: 14rpx auto 4%;
+  background: white;
+  border-radius: 5px;
+}
+
+.serviceshop-text{
+  color: #3f3f3f;
+  margin: 0 5%;
+  display: flex;
+  height: 100rpx;
+  width: 90%;
+  align-items: center;
+}
+
+.serviceshop-text image{
+  width: 44rpx;
+  height: 40rpx;
+}
+
+.name{
+  padding: 16rpx;
+}
+
+.serviceshopinfor{
+  display: flex;
+  border-top: 1px solid #eee;
+  width: 90%;
+  margin: 0 auto;
+  padding: 3% 0;
+  align-items:center;
+}
+
+.servicelogo{
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+
+.serviceshop-address{
+  letter-spacing: 1px;
+  margin-left: 4%;
+  width: 72%;
+}
+
+.address{
+  color: #8E8E93;
+  font-size: 16rpx;
+  margin-top: 4rpx;
+}
+
+.arrowimg{
+  width: 30rpx;
+  height: 30rpx; 
+}
+
+.num{
+  border:1px solid #1a84ff;
+  width: 60rpx;
+  border-radius: 30px;
+  text-align: center;
+  font-size: 18rpx;
+  margin-top: 6rpx;
+}
+
+.pricenum{
+  text-align: right;
+  color: #8E8E93;
+}
+
+.price{
+  color: #1a84ff;
+  font-size: 22rpx;
+}
+
+.copy_cell {
+  padding: 1px 10px;
+  border: 1rpx solid #b3b3b3;
+  margin-left: 26px;
+  border-radius: 20px;
+  font-size: 10px;
+}
+.order-infor{
+  font-size: 22rpx;
+  color: #8E8E93;
+  letter-spacing: 1px;
+  margin: 0 5%;
+  padding-bottom: 2%;
+}
+
+.line{
+  border-top:1px solid #eee;
+  padding-top: 2%
+}
+
+.bottom{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 94%;
+  margin: 14rpx 3%;
+}
+
+.cancelorder{
+  width: 220rpx;
+  height: 70rpx;
+  border-radius: 50rpx;
+  border: 1rpx solid #b9b9b9;
+  color: #8E8E93;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

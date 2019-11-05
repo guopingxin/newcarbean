@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "发布",
+  "usingComponents": {
+    "my-fabutype-modal": "/components/fabutype/fabutype",
+    "my-location-modal": "/components/location/location",
+    "my-login-modal": "/components/login/login"
+  }
+}

@@ -1,0 +1,11 @@
+/* pages/index/gonglue/gonglue.wxss */
+.cantainer{
+  width: 100%;
+  background: url("http://www.feecgo.com/level/gongluebg.png") no-repeat left top;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 390%;
+}
+

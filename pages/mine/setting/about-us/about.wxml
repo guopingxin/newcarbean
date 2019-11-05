@@ -1,0 +1,10 @@
+<!-- 关于我们 -->
+<view class="container">
+  <view class="about">
+    <view class="about-img">
+      <image src="{{imgUrl}}/logo.png" />
+    </view>
+    <text class="about-title">车豆</text>
+    <text>v1.14.1</text>
+  </view>
+</view>

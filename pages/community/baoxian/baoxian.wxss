@@ -1,0 +1,7 @@
+/* pages/community/baoxian/baoxian.wxss */
+
+@import '../../../components/community-modal/community.wxss';
+
+.each_dynamic {
+  border-bottom: 6px solid #f2f2f2;
+}

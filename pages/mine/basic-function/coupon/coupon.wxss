@@ -1,0 +1,189 @@
+/* 我的优惠券 */
+
+.container {
+}
+
+.coupon-record {
+  color: #a9a9a9;
+  width: 100%;
+  padding: 24rpx 28rpx;
+  text-align: right;
+}
+
+.coupon-list {
+  width: 702rpx;
+  margin: 0 auto;
+}
+
+.coupon-item {
+  width: 100%;
+  height: 180rpx;
+  background: url('http://www.feecgo.com/level/wlq_bg.png') no-repeat center;
+  background-size: 100% 100%;
+  padding: 32rpx 0 20rpx 76rpx;
+  color: #df4646;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.coupon-item-used {
+  background: url('http://www.feecgo.com/level/yhq_ysy.png') no-repeat center;
+  background-size: 100% 100%;
+  color: #cbcbcb;
+}
+
+.item-btn {
+  display: flex;
+  justify-content: flex-end;
+  width: 702rpx;
+  margin: 12rpx auto;
+}
+
+.item-btn view {
+  width: 220rpx;
+  height: 60rpx;
+  line-height: 58rpx;
+  text-align: center;
+  border-radius: 10rpx;
+}
+
+.btn-give {
+  border: 1rpx solid #36363c;
+  color: #36363c;
+  height: 60rpx;
+  width: 220rpx;
+  line-height: 58rpx;
+  margin-right: 12rpx;    
+  padding-left: 10rpx;
+  padding-right: 10rpx;
+  font-size: 30rpx;
+  background-color: #fff;
+}
+
+.btn-use {
+  border: 1rpx solid #df4646;
+  color: #df4646;
+}
+
+.item-text-top {
+  display: flex;
+  align-items: center;
+}
+
+.item-text-bottom {
+  font-size: 24rpx;
+}
+
+.top-left {
+  font-family: PingFangSC-Semibold;
+  font-size: 70rpx;
+  margin-right: 4rpx;
+}
+
+.top-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.top-right text:first-child {
+  font-size: 34rpx;
+}
+
+.top-right text:last-child {
+  width: 212rpx;
+  height: 34rpx;
+  line-height: 34rpx;
+  text-align: center;
+  background-color: #df4646;
+  color: #fff;
+  font-size: 24rpx;
+}
+
+.top-right-used text:last-child {
+  background-color: #cbcbcb;
+}
+
+/* 优惠券弹框 */
+
+
+.give-tips {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+}
+
+.modal-content {
+  width: 600rpx;
+  /* height: 278rpx; */
+  background-color: #fff;
+  /* border-radius: 30rpx; */
+  position: relative;
+}
+
+.del-icon {
+  position: absolute;
+  top: 20.5rpx;
+  right: 20.5rpx;
+}
+
+.del-icon image {
+  width: 20.5rpx;
+  height: 20.5rpx;
+}
+
+.title {
+  width: 100%;
+  height: 86rpx;
+  line-height: 86rpx;
+  text-align: center;
+  color: #010101;
+  font-size: 36rpx;
+  border-bottom: 1rpx solid #F6F6F6;
+}
+
+.msg {
+  width: 100%;
+  height: 110rpx;
+  color: #6A6A6A;
+  text-align: center;
+  line-height: 110rpx;
+  font-size: 36rpx;
+}
+
+.btn-bar {
+  width: 100%;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+}
+.btn {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  color: #fff;
+}
+.btn:first-child {
+  background: #CFCFCF;
+}
+.btn:last-child {
+  background: #488FFD;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+  border-radius: 0;
+  font-size: 30rpx;
+  border: 0;
+}
+

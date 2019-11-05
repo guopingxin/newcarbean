@@ -1,0 +1,42 @@
+<cover-view class='voicecontainer' wx:if="{{show}}">
+
+  <cover-view class='voicedialog'>
+    <cover-view class='title'>
+      <cover-view>语音</cover-view>
+      <cover-view class='delete' bindtap='close'>
+        <cover-image src="/images/icon/icon_del_01.png"></cover-image>
+      </cover-view>
+    </cover-view>
+
+    <cover-view class='voice-time'>
+      <cover-view>{{voicetime}}</cover-view>
+      <cover-view>/01:00</cover-view>
+    </cover-view>
+    <cover-view class='voice-icon' bindtap='recorde' wx:if="{{voicecontent=='录制完成'}}" style='justify-content: space-around;'>
+      <cover-image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf/community/delete.png" class='delete-img' bindtap='deletevoice'></cover-image>
+      <cover-image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf/community/voice.png" class='voice-img'></cover-image>
+      <cover-image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf/community/right.png" class='delete-img' bindtap='complate'></cover-image>
+    </cover-view>
+
+    <cover-view class='voice-icon' bindtap='recorde' wx:else style='justify-content: center;'>
+      <cover-view wx:if="{{voicecontent=='正在录制'}}">
+      <cover-image src="{{voicegif}}" class='voice-img'></cover-image>
+      </cover-view>
+      <cover-view wx:else>
+      <cover-image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf/community/voice.png" class='voice-img'></cover-image>
+      </cover-view>
+
+      <!-- <image src="{{voiceimg}}" class='voice-img'></image> -->
+    </cover-view>
+
+    <cover-view class="voice-text" wx:if="{{voicecontent=='录制完成'}}" style='justify-content: space-around;'>
+      <cover-view>删除</cover-view>
+      <cover-view>{{voicecontent}}</cover-view>
+      <cover-view>完成</cover-view>
+    </cover-view>
+    <cover-view class="voice-text" wx:else style='justify-content: center;'>
+      <cover-view>{{voicecontent}}</cover-view>
+    </cover-view>
+
+  </cover-view>
+</cover-view>

@@ -1,0 +1,36 @@
+
+<view class='servicelist'>
+<block wx:for="{{servicelist}}" wx:key="">
+  <view class='serviceitem' bindtap='itemdetail' data-detail='{{item}}'>
+    <image class='serviceimg' src='{{imgUrl}}/servicelogo.jpg'></image>
+    <view class='servicename-price'>
+      <text wx:if="{{item.short_name}}">{{item.short_name}}</text>
+      <text wx:else>
+        <text wx:if="{{item.name.length>10}}">{{item.name.substring(0,10)}}</text>
+        <text>{{item.name}}</text>
+      </text>
+      <text>5.00</text>
+    </view>
+    <view></view>
+    <view>
+      <text class='business type1'>平安保险合作服务商</text>
+      <text class='business type2' wx:if='{{item.type==3}}'>快修店</text>
+      <text class='business type2' wx:if='{{item.type==2}}'>4s店</text>
+      <text class='business type2' wx:if='{{item.type==4}}'>改装店</text>
+      <text class='business type2' wx:if='{{item.type==5}}'>快修店</text>
+      <text class='business type2' wx:if='{{item.type==6}}'>洗车美容</text>
+      <text class='business type2' wx:if='{{item.type==7}}'>轮胎</text>
+      <text class='business type2' wx:if='{{item.type==8}}'>道路救援</text>
+      <text class='business type2' wx:if='{{item.type==9}}'>二手车</text>
+      <text class='business type2' wx:if='{{item.type==10}}'>其他</text>
+    </view>
+    <view class='commont-distance'>
+      <image class='order-img' src='/images/icon/icon_Order.png'></image>
+      <view>{{item.order}}</view>
+      <image class='order-img' src='/images/icon/icon_score.png'></image>
+      <view>{{item.comment}}</view>
+    </view>
+  </view>
+</block>
+
+</view>

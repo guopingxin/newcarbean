@@ -1,0 +1,54 @@
+<!--我的优惠券-->
+<view class="container">
+  <view class="coupon-record" bind:tap="toUseDetail">使用记录</view>
+  <view class="coupon-list" wx:if="{{!noCunqon}}">
+    <!-- 未使用的 -->
+    <view class="coupon-red" wx:for="{{couponArray}}" wx:key="" wx:if="{{item.status == 2}}">
+      <view class="coupon-item">
+        <view class="item-text-top">
+          <view class="top-left">洗车</view>
+          <view class="top-right">
+            <text>免费券</text>
+            <text>{{item.card_no}}</text>
+          </view>
+        </view>
+        <view class="item-text-bottom">有效期：{{item.start_date}}-{{item.end_date}}</view>
+      </view>
+      <view class="item-btn">
+        <button class="btn-give" bind:tap="showGiveCoupon" data-coupon="{{item.id}}">赠送好友</button>
+        <view class="btn-use" bind:tap="showQrCode" data-coupon="{{item.id}}" data-num="{{item.card_no}}">立即使用</view>
+      </view>
+    </view>
+
+    <!-- 已使用的 -->
+    <view class="coupon-item coupon-item-used" wx:for="{{couponArr}}" wx:key="" wx:if="{{item.status == 3}}">
+      <view class="item-text-top">
+        <view class="top-left">洗车</view>
+        <view class="top-right top-right-used">
+          <text>免费券</text>
+          <text>{{item.card_no}}</text>
+        </view>
+      </view>
+      <view class="item-text-bottom">有效期：{{item.start_date}}-{{item.end_date}}</view>
+    </view>
+  </view>
+  <view class="no-cunpon-img" wx:if="{{noCunqon}}">
+    <null-modal img="{{imgUrl}}/no_cunqon.png" text01="暂无优惠券" width="306" height="296" btnHidden="true" />
+  </view>
+  <xiche-qrcode show="{{showCouponModal}}" imgCouponUrl="{{imgUrl}}" couponNum="{{couponNumber}}" />
+</view>
+<view class="give-tips" wx:if="{{showModal}}" >
+  <view class="modal-content">
+    <view class="title">提示</view>
+    <view class="msg">确定要转赠洗车券吗？</view>
+    <view class="btn-bar">
+      <view bind:tap="hideModal" class="btn">取消</view>
+      <button class="btn" open-type='share'>
+        确定
+      </button>
+    </view>
+    <view class="del-icon" bind:tap="hideModal">
+      <image src="/images/icon/icon_del_01.png" />
+    </view>
+  </view>
+</view>
