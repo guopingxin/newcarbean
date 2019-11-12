@@ -82,7 +82,7 @@
         </view>
         <view class='increment_content'>
           <view class='each_service' wx:for='{{activeSertvice.projectName}}' wx:for-item='item' wx:key="">
-            <view wx:if='{{item.id!=18}}' class='service_content'  bindtap='toserviceItem' data-server='{{item.name}}' data-classify_id='{{item.id}}' data-policyid="{{activeSertvice.id}}" data-num="{{item.num}}" data-id='{{item.id}}'>
+            <view wx:if='{{item.id!=18}}' class='service_content'  bindtap='toserviceItem' data-server='{{item.name}}' data-classify_id='{{item.id}}' data-policyid="{{activeSertvice.id}}" data-num="{{item.num}}" data-id='{{item.id}}' data-mobile = '{{item.mobile}}'>
               <image src='{{imgUrl}}/Service-Washthecar@2x.png' wx:if='{{item.id==20}}'></image>
 
               <image src='{{imgUrl}}/Tire change@2x.png' wx:elif='{{item.id==21}}'></image>
@@ -196,6 +196,16 @@
       <text bindtap='closeItem'>取消</text>
       <text bindtap='okItem'>确定</text>
     </view>
+  </view>
+</view>
+
+
+<view class='modal' wx:if='{{sysnotice}}'>
+
+  <view class='modal_content'>
+    <view style='font-weight:bold;text-align:center'>通知</view>
+    <text class="sysnoticetext">由于系统升级维护，部分数据需要更新，请用户重新绑定保单进行使用!</text>
+    <view class='know' bindtap="sysnotice">知道了</view>
   </view>
 </view>
 

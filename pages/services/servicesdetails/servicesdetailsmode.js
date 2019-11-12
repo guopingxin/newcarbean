@@ -66,7 +66,8 @@ class Servicesdetails extends Base{
         classify_id: that.data.serviceitemclassify,
         price: that.data.serviceitemprice,
         user_id: that.data.userid,
-        source:"openId_chedou"
+        source:"openId_chedou",
+        // moblie: app.globalData.policymoblie?app.globalData.policymoblie:app.globalData.userInfo.mobile
       },
       sCallback:callback
     }

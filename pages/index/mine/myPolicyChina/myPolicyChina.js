@@ -35,6 +35,7 @@ Page({
     introArr: [],
     cleanflag: false,
     iscarclearshow: true,
+    sysnotice:false,
     imgUrl: 'http://www.feecgo.com/level'
   },
 
@@ -47,6 +48,13 @@ Page({
   //   })
 
   // },
+
+  //系统通知
+  sysnotice:function(){
+    this.setData({
+      sysnotice:false
+    })
+  },
 
   toMyOrder: function() {
     this.data.activeId = this.data.activeSertvice.id
@@ -83,6 +91,7 @@ Page({
 
     var that = this
     console.log(e)
+    app.globalData.policymoblie = e.currentTarget.dataset.mobile
 
     var currenttime = util.formatTime(new Date());
 
@@ -551,13 +560,18 @@ Page({
     })
 
     if (!app.globalData.userInfo) {
+
       app.getAuth((res) => {
+       
         if (!res) {
+
           that.setData({
             hasUserInfo: false
           })
         } else {
+
           app.getUserLogin(res, (response) => {
+
             app.globalData.userInfo = response.data.data
             if (response.data.status == 1) {
               that.setData({
@@ -566,12 +580,15 @@ Page({
                 hasUserInfo: true,
                 sessionId: response.data.data.session_id
               })
+
+
               if (response.data.data.is_policy == 1) {
                 checkPolicy(that)
               } else {
                 that.setData({
                   loaded: true,
-                  hasBinling: false
+                  hasBinling: false,
+                  sysnotice:true
                 })
               }
             }
@@ -579,6 +596,7 @@ Page({
         }
       })
     } else {
+
       that.setData({
         userId: app.globalData.userInfo.id,
         userInfo: app.globalData.userInfo,
@@ -590,7 +608,8 @@ Page({
       } else {
         that.setData({
           loaded: true,
-          hasBinling: false
+          hasBinling: false,
+          sysnotice:true
         })
       }
     }
@@ -645,7 +664,8 @@ Page({
       } else {
         that.setData({
           loaded: true,
-          hasBinling: false
+          hasBinling: false,
+          sysnotice:true
         })
       }
     } else {
@@ -692,7 +712,8 @@ Page({
               } else {
                 that.setData({
                   loaded: true,
-                  hasBinling: false
+                  hasBinling: false,
+                  sysnotice:true
                 })
               }
             }
@@ -850,7 +871,8 @@ function checkPolicy(that) {
                     id: that.data.classifyArr[m].id,
                     name: that.data.classifyArr[m].name,
                     num: that.data.policyArr[i].project[j],
-                    intro: that.data.classifyArr[m].intro
+                    intro: that.data.classifyArr[m].intro,
+                    mobile: that.data.policyArr[i].mobile
                   })
                 }
               }
@@ -906,7 +928,8 @@ function checkPolicy(that) {
       } else {
         that.setData({
           hasBinling: false,
-          loaded: true
+          loaded: true,
+          sysnotice:true
         })
       }
     },
