@@ -97,14 +97,19 @@ page {
   margin-bottom: 20rpx;
 }
 
-.orderLink {
-  width: 60rpx;
+.orderLink {  
   position: absolute;
   top: 20rpx;
+  right: 20rpx;
+  display: flex;
+  align-items: center;
+}
+
+.orderLink image{
+  width: 60rpx;
+  height: 60rpx;
   box-shadow: 0 0 20rpx #c0c0c0;
   border-radius: 50%;
-  right: 20rpx;
-  height: 60rpx;
 }
 
 .all_content {

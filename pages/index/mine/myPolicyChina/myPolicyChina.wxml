@@ -1,6 +1,6 @@
 <!-- 中银保险 -->
 <view class='container' wx:if='{{hasUserInfo}}'>
-<!-- welcome中银logo -->
+  <!-- welcome中银logo -->
   <view class='showLogo' wx:if='{{!showLogo&&hasBinling}}' bindtap='cancelModal'>
     <view class='showContent'>
       <image src='/images/welcome.png'></image>
@@ -9,21 +9,21 @@
   <!-- <view class='loading_img_cell' animation="{{animationData}}">
     <image src='/images/loading.gif'></image>
   </view> -->
-<!-- 绑定的保单的主要内容 -->
+  <!-- 绑定的保单的主要内容 -->
   <view class='main_content' animation="{{animationData}}" wx:if='{{hasBinling&&loaded&&showLogo}}'>
     <view class='item_cellc'>
       <!-- <view class='{{activeItem==index?"itemc":""}}' wx:for='{{policyArr}}' wx:for-item='item' wx:key="" id='{{index}}' bindtap='changePolicy'>保单{{chinaNumber[index]}}</view> -->
-    
-    <view class="swiper-tab">
-    <view  wx:key="index"  wx:for='{{policyArr}}' wx:for-item='item' wx:key="" id='{{index}}' bindtap='changePolicy'  class="swiper-tab-list {{activeItem==index ? 'active' : ''}}">
-      <view>保单{{chinaNumber[index]}}</view>
-      <view class="{{activeItem==index ? 'line1' : ''}}"></view>
-    </view>
-     <!-- <text class='fa fa-plus-circle' bindtap='addMore'></text> -->
-     <image src="{{imgUrl}}/add.png" class="add-img" bindtap='addMore'></image>
-  </view>
 
-     
+      <view class="swiper-tab">
+        <view wx:key="index" wx:for='{{policyArr}}' wx:for-item='item' wx:key="" id='{{index}}' bindtap='changePolicy' class="swiper-tab-list {{activeItem==index ? 'active' : ''}}">
+          <view>保单{{chinaNumber[index]}}</view>
+          <view class="{{activeItem==index ? 'line1' : ''}}"></view>
+        </view>
+        <!-- <text class='fa fa-plus-circle' bindtap='addMore'></text> -->
+        <image src="{{imgUrl}}/add.png" class="add-img" bindtap='addMore'></image>
+      </view>
+
+
     </view>
     <view class='all_content'>
       <view class='policy_infor'>
@@ -77,12 +77,16 @@
           <view class='tit_name'>
             <view>增值服务包</view>
             <view>VALUE ADDED SERVICE PACKAGE</view>
-            <image class='orderLink' src='{{imgUrl}}/icon-search copy@2x2.png'></image>
+            <view class='orderLink'>
+              <image src='{{imgUrl}}/icon-search copy@2x2.png'></image>
+              <text>订单列表</text>
+            </view>
+
           </view>
         </view>
         <view class='increment_content'>
           <view class='each_service' wx:for='{{activeSertvice.projectName}}' wx:for-item='item' wx:key="">
-            <view wx:if='{{item.id!=18}}' class='service_content'  bindtap='toserviceItem' data-server='{{item.name}}' data-classify_id='{{item.id}}' data-policyid="{{activeSertvice.id}}" data-num="{{item.num}}" data-id='{{item.id}}' data-mobile = '{{item.mobile}}'>
+            <view wx:if='{{item.id!=18}}' class='service_content' bindtap='toserviceItem' data-server='{{item.name}}' data-classify_id='{{item.id}}' data-policyid="{{activeSertvice.id}}" data-num="{{item.num}}" data-id='{{item.id}}' data-mobile='{{item.mobile}}'>
               <image src='{{imgUrl}}/Service-Washthecar@2x.png' wx:if='{{item.id==20}}'></image>
 
               <image src='{{imgUrl}}/Tire change@2x.png' wx:elif='{{item.id==21}}'></image>
@@ -108,7 +112,7 @@
                 <text class='fa fa-angle-right'></text>
               </view>
             </view>
-            <view wx:else bindtap='toDriving' class='service_content' id='{{item.num}}' >
+            <view wx:else bindtap='toDriving' class='service_content' id='{{item.num}}'>
               <image src='{{imgUrl}}/icon_driving@2x.png'></image>
               <text>{{item.name}}</text>
               <text class='fa fa-info-circle' catchtap='openIntro' id='{{index}}'></text>
@@ -165,7 +169,7 @@
         <view class='red_infor' wx:if='{{no_policy}}'>未查询到保单</view>
         <view class='red_infor' wx:if='{{inforOk}}'>请输入正确的车牌号或发动机后六位</view>
         <view class='red_infor' wx:if='{{bindings}}'>该保单已绑定</view>
-        
+
         <view class='modal_btn'>
           <button form-type='submit'>确 定
             <text style='font-size:12px'>({{timer}}s后重发)</text>
@@ -214,7 +218,7 @@
   <view class='modal_content'>
     <view style='font-weight:bold;text-align:center'>温馨提示</view>
     <text>系统自动为您寻找最近的服务商并立即下单，是否确定使用?</text>
-    
+
     <view class='item'>
       <text bindtap='closeItem1'>取消</text>
       <text bindtap='okItem1'>确定</text>
@@ -224,7 +228,7 @@
 
 <view class="zhongyinwhole" hidden="{{iscarclearshow}}" catchtap="bgcancel">
   <view class="serviceitem">
-    <view class="xichewhole" bindtap='toserviceItem' data-server='洗车' data-classify_id='20' data-policyid="{{activeSertvice.id}}"  data-num='1'>
+    <view class="xichewhole" bindtap='toserviceItem' data-server='洗车' data-classify_id='20' data-policyid="{{activeSertvice.id}}" data-num='1'>
       <image src="{{imgUrl}}/Service-Washthecar@2x.png"></image>
       <text>清洗漆面</text>
     </view>
@@ -235,5 +239,4 @@
   </view>
 </view>
 
-<my-location-modal show="{{locationshow}}" bind:hide="hide"/>
-
+<my-location-modal show="{{locationshow}}" bind:hide="hide" />
