@@ -1,3 +1,3 @@
 <!--pages/services/servicesdetails/navigation/navigation.wxml-->
-<map polyline='{{polyline}}' id="myMap" style="width: 100%; height: 700rpx;" longitude="{{longitude}}" latitude="{{latitude}}" scale='16'>
+<map polyline='{{polyline}}' id="myMap" style="width: 100%; height: 1334rpx;" longitude="{{longitude}}" latitude="{{latitude}}" scale='16'  markers="{{markers}}"> 
 </map>

@@ -2,9 +2,9 @@
   "pages": [
     
     "pages/index/index",
+    "pages/index/mine/zhongyinorder/zhongyinorder",
     "pages/index/mine/myPolicyChina/myPolicyChina",
     "pages/index/mine/zhongyin/zhongyin",
-    "pages/index/mine/zhongyinorder/zhongyinorder",
     "pages/community/prepage/prepage",
     "pages/mine/mine",
     "pages/services/services",
@@ -59,7 +59,6 @@
     "pages/common/member/agent/agent",
     "pages/common/member/agent/order/order",
     "pages/index/mine/myPolicy/myPolicy",
-    
     "pages/edaijia/driving_/driving_",
     "pages/edaijia/drivingmap/drivingmap",
     "pages/edaijia/drivingmap/cityselect/cityselect",
@@ -77,7 +76,8 @@
     "pages/edaijia/webview/webview",
     "pages/edaijia/fee/fee",
     "pages/community/baoxian/baoxian",
-    "pages/services/servicesdetails/navigation/navigation"
+    "pages/services/servicesdetails/navigation/navigation",
+    "pages/index/mine/zhongyinorder/navigation/navigation"
   ],
   "window": {
     "backgroundTextStyle": "light",

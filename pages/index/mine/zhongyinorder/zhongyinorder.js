@@ -124,20 +124,66 @@ Page({
   openMap: function (e) {
     var that = this
 
-    console.log("dddd", e);
+    console.log("dddd", that.data.zhongyinserviceitem.location);
     if (that.data.zhongyinserviceitem.location) {
       wx.getLocation({
         type: 'gcj02', //返回可以用于wx.openLocation的经纬度
         success(res) {
           const latitude = res.latitude
           const longitude = res.longitude
-          wx.openLocation({
-            latitude: that.data.zhongyinserviceitem.location.lat,
-            longitude: that.data.zhongyinserviceitem.location.lng,
-            scale: 28,
-            name: e.currentTarget.dataset.name,
-            address: e.currentTarget.id
+
+
+          // wx.openLocation({
+          //   latitude: that.data.zhongyinserviceitem.location.lat,
+          //   longitude: that.data.zhongyinserviceitem.location.lng,
+          //   scale: 28,
+          //   name: e.currentTarget.dataset.name,
+          //   address: e.currentTarget.id
+          // })
+
+
+          demo.direction({
+            mode: 'driving',
+            from: {
+              latitude: latitude,
+              longitude: longitude
+            },
+            to: {
+              latitude: that.data.zhongyinserviceitem.location.lat,
+              longitude: that.data.zhongyinserviceitem.location.lng,
+            },
+            success: res => {
+              console.log(res)
+
+              var ret = res;        
+              var coors = ret.result.routes[0].polyline;
+              app.globalData.coors = coors;
+              app.globalData.mapmarker = [{
+                latitude: that.data.zhongyinserviceitem.location.lat,
+                longitude: that.data.zhongyinserviceitem.location.lng,
+                iconPath:'/images/position.png',
+                callout:{
+                  content:'终点位置',
+                  display: 'ALWAYS'
+                }
+              },{
+                  latitude: latitude,
+                  longitude: longitude,
+                  iconPath: '/images/position.png',
+                  callout: {
+                    content: '当前起始位置',
+                    display: 'ALWAYS'
+                    }
+              }]
+              wx.navigateTo({
+                url: './navigation/navigation',
+              })
+            },
+            fail: res => {
+              console.log(res)
+            }
           })
+
         }
       })
     } else {

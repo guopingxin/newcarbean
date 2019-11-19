@@ -524,16 +524,16 @@ Page({
 
           }, 1000)
 
-        } else if (res.data.status == 0) {
+        } else if (res.data.status == 0) {   //保单已过期或未查询到保单
           that.setData({
             no_policy: true
           })
 
-        } else if (res.data.status == -1) {
+        } else if (res.data.status == -1) { //该保单已绑定
           that.setData({
             bindings: true
           })
-        } else if (res.data.status == -2) {
+        } else if (res.data.status == -2) {  //该保单已绑定
           that.setData({
             bindings: true
           })

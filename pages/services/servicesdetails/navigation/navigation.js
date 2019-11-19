@@ -50,9 +50,10 @@ Page({
       longitude: pl[0].longitude,
       polyline: [{
         points: pl,
-        color: '#FF0000DD',
-        width: 4
-      }]
+        color: '#32CD32',
+        width: 10
+      }],
+      markers: app.globalData.mapmarker
     })
   },
 

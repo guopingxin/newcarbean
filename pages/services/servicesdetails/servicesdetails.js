@@ -149,6 +149,25 @@ Page({
           //     var ret = res;        
           //     var coors = ret.result.routes[0].polyline;
           //     app.globalData.coors = coors;
+          //     app.globalData.mapmarker = [{
+          //       latitude: that.data.lng.lat,
+          //       longitude: that.data.lng.lng,
+          //       iconPath:'/images/position.png',
+          //       callout:{
+          //         content:'终点位置',
+          //         display: 'ALWAYS'
+          //       }
+
+          //     }, {
+          //       latitude: latitude,
+          //       longitude: longitude,
+          //       iconPath:'/images/position.png',
+          //       callout:{
+          //         content:'起始位置',
+          //         display: 'ALWAYS'
+          //       }
+
+          //     }]
           //     wx.navigateTo({
           //       url: './navigation/navigation?polyline=' + coors,
           //     })

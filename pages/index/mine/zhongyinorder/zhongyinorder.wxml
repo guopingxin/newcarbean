@@ -4,7 +4,7 @@
   <view class="service-location" bindtap="openMap" data-name='{{zhongyinserviceitem.short_name}}' id='{{zhongyinserviceitem.address}}'>
     <image src="{{imgUrl}}/locationtip.png" class="location"></image>
     <view class="servicename-distance">
-      <text>{{zhongyinserviceitem.address}}</text>
+      <text>导航路线 {{zhongyinserviceitem.address}}</text>
       <text class="distance">{{zhongyinserviceitem.distance}}km</text>
     </view>
     <text class='arrows'></text>
