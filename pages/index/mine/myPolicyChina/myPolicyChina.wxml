@@ -38,7 +38,7 @@
           <view class='policy_center'>
             <view class='each_item'>
               <view class='item_key'>保险公司：</view>
-              <view class='item_value'>{{serviceName}}</view>
+              <view class='item_value'>{{activeSertvice.serviceName}}</view>
             </view>
             <view class='each_item'>
               <view class='item_key'>保单号：</view>
@@ -141,8 +141,13 @@
     <view class='logo'>
       <image src='{{imgUrl}}/icon-boc-insurance@2x.png'></image>
     </view>
-    <view class='brance'>
+    <!-- 陕西 -->
+    <view class='brance' wx:if="{{menu == 1}}">
       <image src='{{imgUrl}}/icon-boc-insurance-Typeface@2x.png'></image>
+    </view>
+    <!-- 河南 -->
+    <view class='brance' wx:if="{{menu == 2}}">
+      <image src='/images/henan_insurance.png'></image>
     </view>
     <view wx:if='{{!vertifing}}'>
       <form bindsubmit='bingingPolicy'>
@@ -180,7 +185,7 @@
   </view>
 
 </view>
-
+<!-- 授权按钮 -->
 <view class='modal_cell' style='height:100vh' wx:if='{{!hasUserInfo}}'>
   <view class='modal_content' style='padding:100px 20px;margin-top：40%'>
     <view class='modal_btn'>
@@ -195,7 +200,8 @@
 
   <view class='modal_content'>
     <view style='font-weight:bold;text-align:center'> 条款声明</view>
-    <text>本服务仅为代办年检，但不承诺包过年检，另需自付300元上线费用(服务商收取)。</text>
+    <text wx:if="{{menu == 1}}">本服务仅为代办年检，但不承诺包过年检，另需自付300元上线费用(服务商收取)。</text>
+    <text wx:if="{{menu == 2}}">本服务仅为代办年检，但不承诺包过年检，另需自付上线费用(服务商收取)。</text>
     <view class='item'>
       <text bindtap='closeItem'>取消</text>
       <text bindtap='okItem'>确定</text>
@@ -204,14 +210,14 @@
 </view>
 
 
-<view class='modal' wx:if='{{sysnotice}}'>
+<!-- <view class='modal' wx:if='{{sysnotice}}'>
 
   <view class='modal_content'>
     <view style='font-weight:bold;text-align:center'>通知</view>
     <text class="sysnoticetext">由于系统升级维护，部分数据需要更新，请用户重新绑定保单进行使用!</text>
     <view class='know' bindtap="sysnotice">知道了</view>
   </view>
-</view>
+</view> -->
 
 <view class='modal' wx:if='{{opentip}}'>
 

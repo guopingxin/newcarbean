@@ -152,15 +152,19 @@ Page({
   },
   // 我的保单
   onPolicy: function(e) {
-    var that = this
+    if (this.data.basicUserInfo.service_id == 3949) {
+      this.data.menu = 1
+    } else if (this.data.basicUserInfo.service_id == 4065) {
+      this.data.menu = 2
+    }
     app.getSet((res) => {
       if (!res) {
-        that.setData({
+        this.setData({
           showLoginModal: true
         })
       } else {
         wx.navigateTo({
-          url: '../index/mine/myPolicyChina/myPolicyChina',
+          url: '../index/mine/myPolicyChina/myPolicyChina?menu=' + this.data.menu,
         })
       }
     })

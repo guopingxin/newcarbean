@@ -28,7 +28,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
     if (options.policyId){
       app.globalData.policyId = options.policyId;
     }
@@ -38,8 +37,10 @@ Page({
     var that = this;
 
     that.setData({
-      phonenumber: options.policyphone
+      phonenumber: options.policyphone,
+      menu: options.menu
     })
+    console.log('xxx', this.data.menu)
 
     app.globalData.phonenumber = that.data.phonenumber;
 
@@ -856,61 +857,115 @@ function order(that) {
   // 密云古北口站  40.7  lng 117.15
 
     // md5(app.globalData.secret + 'address北京叶青大厦appkey' + app.globalData.appkey + 'channel' + app.globalData.appkey + 'contactPhone' + that.data.phonenumber + 'from' + app.globalData.efrom +'gpsTypebaidulatitude40.012249longitude116.467941number1phone' + that.data.phonenumber + 'strategyId1000052strategyServiceSign7894a0136ff94096a4a9timestamp' + currenttime + 'token' + that.data.token + 'ver3.4.2' + app.globalData.secret);
+    if (that.data.menu == 1) {
+      md5(app.globalData.secret + 'address' + address + 'appkey' + app.globalData.appkey + 'channel' + app.globalData.appkey + 'contactPhone' + that.data.phonenumber + 'from' + app.globalData.efrom + 'gpsTypebaidulatitude' + app.globalData.location.latLong.lat + 'longitude' + app.globalData.location.latLong.long + 'number1phone' + that.data.phonenumber + 'strategyId1000123strategyServiceSign38aca56816beb721907etimestamp' + currenttime + 'token' + that.data.token + 'ver3.4.2' + app.globalData.secret);
 
-    md5(app.globalData.secret + 'address' + address + 'appkey' + app.globalData.appkey + 'channel' + app.globalData.appkey + 'contactPhone' + that.data.phonenumber + 'from' + app.globalData.efrom + 'gpsTypebaidulatitude' + app.globalData.location.latLong.lat + 'longitude' + app.globalData.location.latLong.long + 'number1phone' + that.data.phonenumber + 'strategyId1000123strategyServiceSign38aca56816beb721907etimestamp' + currenttime + 'token' + that.data.token + 'ver3.4.2' + app.globalData.secret);
+      var hash = md5.create();
+      hash.update(app.globalData.secret + 'address' + address + 'appkey' + app.globalData.appkey + 'channel' + app.globalData.appkey + 'contactPhone' + that.data.phonenumber + 'from' + app.globalData.efrom + 'gpsTypebaidulatitude' + app.globalData.location.latLong.lat + 'longitude' + app.globalData.location.latLong.long + 'number1phone' + that.data.phonenumber + 'strategyId1000123strategyServiceSign38aca56816beb721907etimestamp' + currenttime + 'token' + that.data.token + 'ver3.4.2' + app.globalData.secret);
+
+      hash = hash.hex().substring(0, 30);
+
+      console.log("hash" + hash);
+
+      wx.request({
+        url: app.globalData.httpurl + '/order/commit',
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: {
+          address: address,
+          // address:"北京叶青大厦",
+          appkey: app.globalData.appkey,
+          channel: app.globalData.appkey,
+          contactPhone: that.data.phonenumber,
+          from: app.globalData.efrom,
+          gpsType: 'baidu',
+          latitude: app.globalData.location.latLong.lat,
+          longitude: app.globalData.location.latLong.long,
+          // latitude:"40.012249",
+          // longitude:"116.467941",
+          number: "1",
+          phone: that.data.phonenumber,
+          // strategyId: '1000052',
+          // strategyServiceSign: '7894a0136ff94096a4a9',
+
+          strategyId: '1000123',
+          strategyServiceSign: '38aca56816beb721907e',
+          timestamp: currenttime,
+          token: that.data.token,
+          sig: hash,
+          ver: '3.4.2'
+        },
+        success: function (res) {
+          console.log('成功' + JSON.stringify(res));
+
+          resolve(res);
+        },
+        fail: function (res) {
+          console.log('失败' + JSON.stringify(res));
+          reject(res)
+        }
+      })
+
+    } else if (that.data.menu == 2) {
+      md5(app.globalData.secret + 'address' + address + 'appkey' + app.globalData.appkey + 'channel' + app.globalData.appkey + 'contactPhone' + that.data.phonenumber + 'from' + app.globalData.efrom + 'gpsTypebaidulatitude' + app.globalData.location.latLong.lat + 'longitude' + app.globalData.location.latLong.long + 'number1phone' + that.data.phonenumber + 'strategyId1000333strategyServiceSign38aca56816beb721907etimestamp' + currenttime + 'token' + that.data.token + 'ver3.4.2' + app.globalData.secret);
+
+      var hash = md5.create();
+      hash.update(app.globalData.secret + 'address' + address + 'appkey' + app.globalData.appkey + 'channel' + app.globalData.appkey + 'contactPhone' + that.data.phonenumber + 'from' + app.globalData.efrom + 'gpsTypebaidulatitude' + app.globalData.location.latLong.lat + 'longitude' + app.globalData.location.latLong.long + 'number1phone' + that.data.phonenumber + 'strategyId1000333strategyServiceSign38aca56816beb721907etimestamp' + currenttime + 'token' + that.data.token + 'ver3.4.2' + app.globalData.secret);
+
+      hash = hash.hex().substring(0, 30);
+
+      console.log("hash" + hash);
+
+      wx.request({
+        url: app.globalData.httpurl + '/order/commit',
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: {
+          address: address,
+          // address:"北京叶青大厦",
+          appkey: app.globalData.appkey,
+          channel: app.globalData.appkey,
+          contactPhone: that.data.phonenumber,
+          from: app.globalData.efrom,
+          gpsType: 'baidu',
+          latitude: app.globalData.location.latLong.lat,
+          longitude: app.globalData.location.latLong.long,
+          // latitude:"40.012249",
+          // longitude:"116.467941",
+          number: "1",
+          phone: that.data.phonenumber,
+          // strategyId: '1000052',
+          // strategyServiceSign: '7894a0136ff94096a4a9',
+
+          strategyId: '1000333',
+          strategyServiceSign: '38aca56816beb721907e',
+          timestamp: currenttime,
+          token: that.data.token,
+          sig: hash,
+          ver: '3.4.2'
+        },
+        success: function (res) {
+          console.log('成功' + JSON.stringify(res));
+
+          resolve(res);
+        },
+        fail: function (res) {
+          console.log('失败' + JSON.stringify(res));
+          reject(res)
+        }
+      })
+
+    }
+    
 
     // md5(app.globalData.secret + 'address大杨山国家森林公园' + 'appkey' + app.globalData.appkey + 'channel' + app.globalData.appkey + 'contactPhone' + app.globalData.ephone + 'from' + app.globalData.efrom + 'gpsTypebaidulatitude40.28323' + 'longitude116.466056' + 'number1phone' + app.globalData.ephone + 'timestamp' + currenttime + 'token' + that.data.token + 'ver3.4.2' + app.globalData.secret);
 
-
-    var hash = md5.create();
-    hash.update(app.globalData.secret + 'address' + address + 'appkey' + app.globalData.appkey + 'channel' + app.globalData.appkey + 'contactPhone' + that.data.phonenumber + 'from' + app.globalData.efrom + 'gpsTypebaidulatitude' + app.globalData.location.latLong.lat + 'longitude' + app.globalData.location.latLong.long + 'number1phone' + that.data.phonenumber + 'strategyId1000123strategyServiceSign38aca56816beb721907etimestamp' + currenttime + 'token' + that.data.token + 'ver3.4.2' + app.globalData.secret);
-
-
     // hash.update(app.globalData.secret + 'address北京叶青大厦appkey' + app.globalData.appkey + 'channel' + app.globalData.appkey + 'contactPhone' + that.data.phonenumber + 'from' + app.globalData.efrom + 'gpsTypebaidulatitude40.012249longitude116.467941number1phone' + that.data.phonenumber + 'strategyId1000052strategyServiceSign7894a0136ff94096a4a9timestamp' + currenttime + 'token' + that.data.token + 'ver3.4.2' + app.globalData.secret); 
 
-    hash = hash.hex().substring(0, 30);
-
-    console.log("hash" + hash);
-
-    wx.request({
-      url: app.globalData.httpurl + '/order/commit',
-      method: 'POST',
-      header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      data: {
-        address: address,
-        // address:"北京叶青大厦",
-        appkey: app.globalData.appkey,
-        channel: app.globalData.appkey,
-        contactPhone: that.data.phonenumber,
-        from: app.globalData.efrom,
-        gpsType: 'baidu',
-        latitude: app.globalData.location.latLong.lat,
-        longitude: app.globalData.location.latLong.long,
-        // latitude:"40.012249",
-        // longitude:"116.467941",
-        number: "1",
-        phone: that.data.phonenumber,
-        // strategyId: '1000052',
-        // strategyServiceSign: '7894a0136ff94096a4a9',
-
-        strategyId: '1000123',
-        strategyServiceSign: '38aca56816beb721907e',
-        timestamp: currenttime,
-        token: that.data.token,
-        sig: hash,
-        ver: '3.4.2'
-      },
-      success: function (res) {
-        console.log('成功' + JSON.stringify(res));
-
-        resolve(res);
-      },
-      fail: function (res) {
-        console.log('失败' + JSON.stringify(res));
-        reject(res)
-      }
-    })
+    
   })
 }

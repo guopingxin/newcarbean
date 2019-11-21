@@ -2,19 +2,18 @@
 // pages/index/mine/myPolicy/myPolicy.js
 import common from '../../../../utils/common.js'
 
-var md5 = require('../../../../utils/md5.js');
-var util = require('../../../../utils/eutil.js');
-var redis = require('../../../../utils/redis.js');
+var md5 = require('../../../../utils/md5.js')
+var util = require('../../../../utils/eutil.js')
+var redis = require('../../../../utils/redis.js')
 var CryptoJS = require('../../../../utils/aes.js')
 
-var test1 = getApp().globalData.hostName;
+var test1 = getApp().globalData.hostName
 const app = getApp()
 
 import {
   Member
 } from '../../../common/models/member.js'
 var memberModel = new Member()
-
 
 Page({
 
@@ -25,37 +24,149 @@ Page({
     chinaNumber: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'],
     timer: 300,
     mobile: "",
-    // container: 'container',
-    // back_cell: 'back_cell',
-    // title_cell: 'title_cell',
-    // marginTop: '64px',
     serviceArr: [],
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     introArr: [],
     cleanflag: false,
     iscarclearshow: true,
-    sysnotice:false,
+    sysnotice: false,
     imgUrl: 'http://www.feecgo.com/level'
   },
 
+  onLoad: function(options) {
+    var that = this
+    this.data.ifonshow = false
 
-  // switchnav: function (e) {
-  //   var that = this;
+    wx.getLocation({
+      type: 'gcj02',
+      success: function(res) {},
+    })
+    console.log('xxx',options)
+    var menu = options.menu
+    // var menu = 2
+      // 陕西中银
+    if (menu == 1) {
+      this.setData({
+        menu: menu
+      })
+      // 河南中银
+    } else if (menu == 2){
+      this.setData({
+        menu: menu
+      })
+    }
+    if (!app.globalData.userInfo) {
+      app.getAuth((res) => {
+        if (!res) {
+          that.setData({
+            hasUserInfo: false
+          })
+        } else {
+          app.getUserLogin(res, (response) => {
+            app.globalData.userInfo = response.data.data
+            if (response.data.status == 1) {
+              that.setData({
+                userId: response.data.data.id,
+                userInfo: response.data.data,
+                hasUserInfo: true,
+                sessionId: response.data.data.session_id
+              })
 
-  //   that.setData({
-  //     currentTab: e.currentTarget.dataset.index
-  //   })
+              if (response.data.data.is_policy == 1) {
+                checkPolicy(that)
+              } else {
+                that.setData({
+                  loaded: true,
+                  hasBinling: false,
+                  sysnotice: true
+                })
+              }
+            }
+          })
+        }
+      })
+    } else {
 
-  // },
+      that.setData({
+        userId: app.globalData.userInfo.id,
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true,
+        sessionId: app.globalData.userInfo.session_id
+      })
+      if (app.globalData.userInfo.is_policy == 1) {
+        checkPolicy(that)
+      } else {
+        that.setData({
+          loaded: true,
+          hasBinling: false,
+          sysnotice: true
+        })
+      }
+    }
+    //  else {
+    //   that.setData({
+    //     userId: app.globalData.userInfo.id,
+    //     userInfo: app.globalData.userInfo,
+    //     hasUserInfo: true,
+    //     sessionId: app.globalData.userInfo.session_id
+    //   })
+    //   if (app.globalData.userInfo.is_policy == 1) {
+    //     checkPolicy(that)
+    //   } else {
+    //     that.setData({
+    //       loaded: true,
+    //       hasBinling: false
+    //     })
+    //   }
+    // }
+    // that.setData({
+    //   hasUserInfo: true
+    // })
+    // --------------------------------------------
+    // wx.getSystemInfo({
+    //   success: function (res) {
+    //     console.log(res.model)
+    //     app.globalData.mobileType = res.model
+    //   }
+    // })
+    // var screenHeight = wx.getSystemInfoSync().screenHeight
+    // var screenWidth = wx.getSystemInfoSync().screenWidth
+    // that.setData({
+    //   screenWidth: (screenWidth * 317) / 375 + 'px'
+    // })
+    // -------------------------------------------------
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    var that = this
+    app.globalData.activePolicy = {}
+    if (app.globalData.userInfo) {
+      if (app.globalData.userInfo.is_policy == 1) {
+        checkPolicy(that)
+      } else {
+        that.setData({
+          loaded: true,
+          hasBinling: false,
+          sysnotice: true
+        })
+      }
+    } else {
+      that.onLoad()
+    }
+  },
 
   //系统通知
-  sysnotice:function(){
+  sysnotice: function() {
     this.setData({
-      sysnotice:false
+      sysnotice: false
     })
   },
 
+  // 从增值服务包进入我的订单
   toMyOrder: function() {
     this.data.activeId = this.data.activeSertvice.id
     app.globalData.activePolicy = {
@@ -67,6 +178,7 @@ Page({
     })
   },
 
+  // 添加保单
   addMore: function() {
     this.setData({
       hasBinling: false,
@@ -81,7 +193,7 @@ Page({
   },
 
   bgcancel: function() {
-    var that = this;
+    var that = this
     that.setData({
       iscarclearshow: true
     })
@@ -90,14 +202,13 @@ Page({
   toserviceItem: function(e) {
 
     var that = this
-    console.log(e)
+    // console.log(e)
     app.globalData.policymoblie = e.currentTarget.dataset.mobile
+    var currenttime = util.formatTime(new Date())
 
-    var currenttime = util.formatTime(new Date());
-
-    that.data.hour = currenttime.substring(11, 13);
-    that.data.min = currenttime.substring(14, 16);
-    that.data.sec = currenttime.substring(17);
+    that.data.hour = currenttime.substring(11, 13)
+    that.data.min = currenttime.substring(14, 16)
+    that.data.sec = currenttime.substring(17)
 
     if (parseInt(e.currentTarget.dataset.num) <= 0) {
       wx.showToast({
@@ -133,8 +244,8 @@ Page({
     }
     this.data.ifonshow = true
 
-    that.data.server = e.currentTarget.dataset.server;
-    that.data.classify_id = e.currentTarget.dataset.classify_id;
+    that.data.server = e.currentTarget.dataset.server
+    that.data.classify_id = e.currentTarget.dataset.classify_id
     that.data.policyid = e.currentTarget.dataset.policyid
 
     // wx.navigateTo({
@@ -166,7 +277,7 @@ Page({
                     that.setData({
                       locationshow: true
                     })
-                  } else{
+                  } else {
                     wx.navigateTo({
                       url: '../zhongyin/zhongyin?server=' + that.data.server + '&classifyid=' + that.data.classify_id + '&policyid=' + that.data.policyid
                     })
@@ -191,7 +302,7 @@ Page({
         } else {
 
           wx.getSetting({
-            success: function (res) {
+            success: function(res) {
               if (!res.authSetting['scope.userLocation']) {
                 that.setData({
                   locationshow: true
@@ -217,7 +328,7 @@ Page({
 
 
       wx.getSetting({
-        success: function (res) {
+        success: function(res) {
           if (!res.authSetting['scope.userLocation']) {
             that.setData({
               locationshow: true
@@ -242,7 +353,7 @@ Page({
 
   okItem: function() {
 
-    var that = this;
+    var that = this
     that.setData({
       openItem: false
     })
@@ -264,25 +375,25 @@ Page({
             //         locationshow: true
             //       })
             //     } else {
-                  memberModel.agentOrderDetail(app.globalData.userInfo.id, 2, res => {
-                    console.log(res)
-                    if (res.status == 1) {
-                      if (res.data.status < 2) {
-                        wx.setStorageSync("agentType", res.data.type)
-                        wx.navigateTo({
-                          url: '../../../common/member/agent/order/order',
-                        })
-                      } else {
-                        wx.navigateTo({
-                          url: '../../../common/member/agent/agent?content=' + '年审代办',
-                        })
-                      }
-                    } else {
-                      wx.navigateTo({
-                        url: '../../../common/member/agent/agent?content=' + '年审代办',
-                      })
-                    }
+            memberModel.agentOrderDetail(app.globalData.userInfo.id, 2, res => {
+              console.log(res)
+              if (res.status == 1) {
+                if (res.data.status < 2) {
+                  wx.setStorageSync("agentType", res.data.type)
+                  wx.navigateTo({
+                    url: '../../../common/member/agent/order/order',
                   })
+                } else {
+                  wx.navigateTo({
+                    url: '../../../common/member/agent/agent?content=' + '年审代办',
+                  })
+                }
+              } else {
+                wx.navigateTo({
+                  url: '../../../common/member/agent/agent?content=' + '年审代办',
+                })
+              }
+            })
             //     }
             //   }
             // })
@@ -310,25 +421,25 @@ Page({
         //         locationshow: true
         //       })
         //     } else {
-              memberModel.agentOrderDetail(app.globalData.userInfo.id, 2, res => {
-                console.log(res)
-                if (res.status == 1) {
-                  if (res.data.status < 2) {
-                    wx.setStorageSync("agentType", res.data.type)
-                    wx.navigateTo({
-                      url: '../../../common/member/agent/order/order',
-                    })
-                  } else {
-                    wx.navigateTo({
-                      url: '../../../common/member/agent/agent?content=' + '年审代办',
-                    })
-                  }
-                } else {
-                  wx.navigateTo({
-                    url: '../../../common/member/agent/agent?content=' + '年审代办',
-                  })
-                }
+        memberModel.agentOrderDetail(app.globalData.userInfo.id, 2, res => {
+          console.log(res)
+          if (res.status == 1) {
+            if (res.data.status < 2) {
+              wx.setStorageSync("agentType", res.data.type)
+              wx.navigateTo({
+                url: '../../../common/member/agent/order/order',
               })
+            } else {
+              wx.navigateTo({
+                url: '../../../common/member/agent/agent?content=' + '年审代办',
+              })
+            }
+          } else {
+            wx.navigateTo({
+              url: '../../../common/member/agent/agent?content=' + '年审代办',
+            })
+          }
+        })
         //     }
         //   }
         // })
@@ -377,6 +488,7 @@ Page({
     })
   },
 
+  // 保单绑定
   veryifyCode: function(e) {
     var that = this
 
@@ -406,13 +518,13 @@ Page({
       success: function(res) {
         var dataType = typeof res.data
         if (dataType == 'string') {
-          var jsonStr = res.data;
-          jsonStr = jsonStr.replace(" ", "");
+          var jsonStr = res.data
+          jsonStr = jsonStr.replace(" ", "")
           var temp
           if (typeof jsonStr != 'object') {
-            jsonStr = jsonStr.replace(/\ufeff/g, ""); //重点
-            temp = JSON.parse(jsonStr);
-            res.data = temp;
+            jsonStr = jsonStr.replace(/\ufeff/g, "") //重点
+            temp = JSON.parse(jsonStr)
+            res.data = temp
           }
         }
 
@@ -447,8 +559,6 @@ Page({
           wx.hideLoading()
 
         } else if (res.data.status == -1) {
-
-          console.log("ddd");
           wx.hideLoading()
           that.setData({
             bindings: true
@@ -458,27 +568,26 @@ Page({
     })
   },
 
+  // 中银保单查询
   bingingPolicy: function(e) {
     var that = this
-    var reCar = /([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF])|([DF]([A-HJ-NP-Z0-9])[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1})/i;
+    var reCar = /([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF])|([DF]([A-HJ-NP-Z0-9])[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1})/i
     if (reCar.test(e.detail.value.policyNum)) {
-      console.log('ok')
     } else {
       if (e.detail.value.policyNum.length == 6) {
-
       } else {
         this.setData({
           inforOk: true
         })
         return
       }
-
     }
+
     that.data.bindCarNo = e.detail.value.policyNum
     wx.showLoading({
       title: '查询中...',
     })
-    console.log(e.detail.value.policyNum)
+    // console.log(e.detail.value.policyNum)
     wx.request({
       url: test1 + '/user/user/bankGetPolicy',
       method: 'POST',
@@ -490,18 +599,6 @@ Page({
         car_no: e.detail.value.policyNum,
       },
       success: function(res) {
-        var dataType = typeof res.data
-        if (dataType == 'string') {
-          var jsonStr = res.data;
-          jsonStr = jsonStr.replace(" ", "");
-          var temp
-          if (typeof jsonStr != 'object') {
-            jsonStr = jsonStr.replace(/\ufeff/g, ""); //重点
-            temp = JSON.parse(jsonStr);
-            res.data = temp;
-          }
-        }
-        console.log(res)
         wx.hideLoading()
         if (res.data.status == 1) {
           that.setData({
@@ -524,7 +621,7 @@ Page({
 
           }, 1000)
 
-        } else if (res.data.status == 0) {   //保单已过期或未查询到保单
+        } else if (res.data.status == 0) { //保单已过期或未查询到保单
           that.setData({
             no_policy: true
           })
@@ -533,12 +630,12 @@ Page({
           that.setData({
             bindings: true
           })
-        } else if (res.data.status == -2) {  //该保单已绑定
+        } else if (res.data.status == -2) { //该保单已绑定
           that.setData({
             bindings: true
           })
         }
-      },
+      }
     })
   },
 
@@ -548,141 +645,17 @@ Page({
     })
   },
 
-
-
-  onLoad: function(options) {
-    var that = this
-    this.data.ifonshow = false
-
-    wx.getLocation({
-      type: 'gcj02',
-      success: function(res) {},
-    })
-
-    if (!app.globalData.userInfo) {
-
-      app.getAuth((res) => {
-       
-        if (!res) {
-
-          that.setData({
-            hasUserInfo: false
-          })
-        } else {
-
-          app.getUserLogin(res, (response) => {
-
-            app.globalData.userInfo = response.data.data
-            if (response.data.status == 1) {
-              that.setData({
-                userId: response.data.data.id,
-                userInfo: response.data.data,
-                hasUserInfo: true,
-                sessionId: response.data.data.session_id
-              })
-
-
-              if (response.data.data.is_policy == 1) {
-                checkPolicy(that)
-              } else {
-                that.setData({
-                  loaded: true,
-                  hasBinling: false,
-                  sysnotice:true
-                })
-              }
-            }
-          })
-        }
-      })
-    } else {
-
-      that.setData({
-        userId: app.globalData.userInfo.id,
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true,
-        sessionId: app.globalData.userInfo.session_id
-      })
-      if (app.globalData.userInfo.is_policy == 1) {
-        checkPolicy(that)
-      } else {
-        that.setData({
-          loaded: true,
-          hasBinling: false,
-          sysnotice:true
-        })
-      }
-    }
-    // var menu = 1
-    // if (options.menu == 1) {
-    //   this.setData({
-    //     menu: 1
-    //   })
-
-    // }
-    //  else {
-    //   that.setData({
-    //     userId: app.globalData.userInfo.id,
-    //     userInfo: app.globalData.userInfo,
-    //     hasUserInfo: true,
-    //     sessionId: app.globalData.userInfo.session_id
-    //   })
-    //   if (app.globalData.userInfo.is_policy == 1) {
-    //     checkPolicy(that)
-    //   } else {
-    //     that.setData({
-    //       loaded: true,
-    //       hasBinling: false
-    //     })
-    //   }
-    // }
-    // that.setData({
-    //   hasUserInfo: true
-    // })
-    wx.getSystemInfo({
-      success: function(res) {
-        console.log(res.model)
-        app.globalData.mobileType = res.model
-      }
-    })
-    var screenHeight = wx.getSystemInfoSync().screenHeight
-    var screenWidth = wx.getSystemInfoSync().screenWidth
-    that.setData({
-      screenWidth: (screenWidth * 317) / 375 + 'px'
-    })
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-    var that = this
-    app.globalData.activePolicy = {}
-    if (app.globalData.userInfo) {
-      if (app.globalData.userInfo.is_policy == 1) {
-        checkPolicy(that)
-      } else {
-        that.setData({
-          loaded: true,
-          hasBinling: false,
-          sysnotice:true
-        })
-      }
-    } else {
-      that.onLoad()
-    }
-
-
-  },
+  // 保单切换
   changePolicy: function(e) {
-
-    console.log("hhhhhhhhhh", e, this.data.policyArr);
+    console.log("hhhhhhhhhh", this.data.policyArr)
     this.setData({
       activeItem: e.currentTarget.id,
       activeSertvice: this.data.policyArr[e.currentTarget.id]
     })
 
   },
+
+  // 获取授权信息
   getUserInfo: function(e) {
     var that = this
     // app.getUser(e.detail.rawData)
@@ -713,7 +686,7 @@ Page({
                 that.setData({
                   loaded: true,
                   hasBinling: false,
-                  sysnotice:true
+                  sysnotice: true
                 })
               }
             }
@@ -725,17 +698,14 @@ Page({
   },
 
   toDriving: function(e) {
-
-    var that = this;
-
+    var that = this
     this.data.ifonshow = true
-    console.log(JSON.stringify(this.data.activeSertvice) + "kk" + e.currentTarget.id)
+    // console.log(JSON.stringify(this.data.activeSertvice) + "kk" + e.currentTarget.id)
 
-    console.log("gggggg", that.data.policyArr)
-
+    // console.log("gggggg", that.data.policyArr)
 
     wx.navigateTo({
-      url: '../../../edaijia/driving_/driving_?card_length=' + e.currentTarget.id + '&policyId=' + this.data.activeSertvice.policy_no + '&policy=' + this.data.activeSertvice.id + '&policyphone=' + that.data.activeSertvice.mobile + '&title=',
+      url: '../../../edaijia/driving_/driving_?card_length=' + e.currentTarget.id + '&policyId=' + this.data.activeSertvice.policy_no + '&menu=' + this.data.menu + '&policy=' + this.data.activeSertvice.id + '&policyphone=' + that.data.activeSertvice.mobile + '&title=',
     })
     this.data.activeId = this.data.activeSertvice.id
 
@@ -743,14 +713,14 @@ Page({
     // if (parseInt(e.currentTarget.id)> 0){
 
     //   if (redis.getkey("token")) {
-    //     that.data.token = redis.getkey('token');
+    //     that.data.token = redis.getkey('token')
     //     wx.navigateTo({
     //       url: '../../../edaijia/webview/webview',
     //     })
 
-    //     // that.getHistorylist();
+    //     // that.getHistorylist()
     //   } else {
-    //     that.orderlist();
+    //     that.orderlist()
     //   }
     // }
 
@@ -758,13 +728,13 @@ Page({
 
   //h5免登获取token
   orderlist: function() {
-    var that = this;
-    var currenttime = util.formatTime(new Date());
+    var that = this
+    var currenttime = util.formatTime(new Date())
 
-    md5(app.globalData.secret + 'appkey' + app.globalData.appkey + 'from' + app.globalData.efrom + 'phone' + that.data.activeSertvice.mobile + 'strategyId1000123strategyServiceSign38aca56816beb721907etimestamp' + currenttime + 'ver3.4.2' + app.globalData.secret);
-    var hash = md5.create();
-    hash.update(app.globalData.secret + 'appkey' + app.globalData.appkey + 'from' + app.globalData.efrom + 'phone' + that.data.activeSertvice.mobile + 'strategyId1000123strategyServiceSign38aca56816beb721907etimestamp' + currenttime + 'ver3.4.2' + app.globalData.secret);
-    hash = hash.hex().substring(0, 30);
+    md5(app.globalData.secret + 'appkey' + app.globalData.appkey + 'from' + app.globalData.efrom + 'phone' + that.data.activeSertvice.mobile + 'strategyId1000123strategyServiceSign38aca56816beb721907etimestamp' + currenttime + 'ver3.4.2' + app.globalData.secret)
+    var hash = md5.create()
+    hash.update(app.globalData.secret + 'appkey' + app.globalData.appkey + 'from' + app.globalData.efrom + 'phone' + that.data.activeSertvice.mobile + 'strategyId1000123strategyServiceSign38aca56816beb721907etimestamp' + currenttime + 'ver3.4.2' + app.globalData.secret)
+    hash = hash.hex().substring(0, 30)
 
     wx.request({
       url: app.globalData.httpurl + '/customer/authorizeToken',
@@ -783,31 +753,31 @@ Page({
         ver: '3.4.2'
       },
       success: function(res) {
-        console.log('成功' + JSON.stringify(res));
+        console.log('成功' + JSON.stringify(res))
 
 
         wx.navigateTo({
           url: '../../../edaijia/webview/webview?strategyToken=' + res.data.data + '&from=' + app.globalData.efrom,
         })
 
-        // var key = CryptoJS.enc.Utf8.parse("ABCDEFG123456789");
+        // var key = CryptoJS.enc.Utf8.parse("ABCDEFG123456789")
         // var decryptData = CryptoJS.AES.decrypt(res.data.data, key, {
         //   mode: CryptoJS.mode.ECB,
         //   padding: CryptoJS.pad.Pkcs7
-        // });
+        // })
         // //对数据进行Utf-8设置,便成功解密了数据,生成result
-        // var result = decryptData.toString(CryptoJS.enc.Utf8);
+        // var result = decryptData.toString(CryptoJS.enc.Utf8)
 
-        // console.log("解密" + result);
-        // that.data.token = result.substring(6);
+        // console.log("解密" + result)
+        // that.data.token = result.substring(6)
 
         // redis.put("token", that.data.token, 2 * 60 * 60)
 
-        // that.getHistorylist();
+        // that.getHistorylist()
 
       },
       fail: function(res) {
-        console.log('失败' + JSON.stringify(res));
+        console.log('失败' + JSON.stringify(res))
       }
     })
 
@@ -819,12 +789,7 @@ Page({
       showLogo: true,
     })
   },
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
 
-  },
   cancelRed: function() {
     this.setData({
       codeError: false,
@@ -835,6 +800,7 @@ Page({
   },
 })
 
+// 获取保单详情
 function checkPolicy(that) {
   wx.request({
     url: test1 + '/user/user/policyInfo',
@@ -854,17 +820,14 @@ function checkPolicy(that) {
           vertifing: false
         })
         that.data.policyArr = res.data.data
-
         // that.data.tempProject = res.data.data.project
-        getservice(that)
         getItemClassify(that).then(function() {
           for (var i in that.data.policyArr) {
-
             that.data.policyArr[i].start_date = that.data.policyArr[i].start_date.slice(0, 10)
             that.data.policyArr[i].end_date = that.data.policyArr[i].end_date.slice(0, 10)
+
             var tempService = []
             for (var j in that.data.policyArr[i].project) {
-
               for (var m in that.data.classifyArr) {
                 if (j == that.data.classifyArr[m].id) {
                   tempService.push({
@@ -879,7 +842,7 @@ function checkPolicy(that) {
             }
 
             if (j == 31) { //车辆清洗
-              that.data.policyArr[i].project.cleanflag = true;
+              that.data.policyArr[i].project.cleanflag = true
             }
             that.data.policyArr[i].projectName = tempService
           }
@@ -889,7 +852,6 @@ function checkPolicy(that) {
           })
 
           for (var i in that.data.policyArr) {
-
             if (that.data.policyArr[i].project.cleanflag) {
               for (var j in that.data.policyArr[i].projectName) {
 
@@ -920,16 +882,20 @@ function checkPolicy(that) {
             })
           }
 
-          console.log("4444", that.data.activeSertvice)
+          // console.log("4444", that.data.activeSertvice)
           that.setData({
             serviceArr: that.data.serviceArr
           })
+        })
+        that.data.policyArr.forEach((item, index) => {
+          that.data.serviceId = item.service_id
+          getservice(that)
         })
       } else {
         that.setData({
           hasBinling: false,
           loaded: true,
-          sysnotice:true
+          sysnotice: true
         })
       }
     },
@@ -937,7 +903,7 @@ function checkPolicy(that) {
 }
 
 
-
+// 获取保单详情保险公司补充信息
 function getservice(that) {
   wx.request({
     url: test1 + '/user/index/sponsors',
@@ -947,33 +913,27 @@ function getservice(that) {
       'Cookie': 'PHPSESSID=' + that.data.sessionId
     },
     data: {
-      id: 3949
+      id: that.data.serviceId
     },
     success: function(res) {
-      console.log(res)
-
       //保险公司id
-      app.globalData.service_no = res.data.id;
-
-      var dataType = typeof res.data
-      if (dataType == 'string') {
-        var jsonStr = res.data;
-        jsonStr = jsonStr.replace(" ", "");
-        var temp
-        if (typeof jsonStr != 'object') {
-          jsonStr = jsonStr.replace(/\ufeff/g, ""); //重点
-          temp = JSON.parse(jsonStr);
-          res.data = temp;
-        }
-      }
+      app.globalData.service_no = res.data.id
       if (res.data.status == 1) {
         // that.data.policyDetail.policy.service_name = res.data.name
-
+        that.data.policyArr.forEach((item, index)=> {
+          if (that.data.serviceId == item.service_id) {
+            item.serviceName = res.data.name   
+          } else  {
+            that.data.policyArr[0].serviceName = res.data.name
+            // that.setData({
+            //   activeSertvice: that.data.policyArr[0],
+            //   activeItem: 0
+            // })
+          }
+        })
         that.setData({
           hasBinling: true,
-          serviceName: res.data.name,
           loaded: true
-
           // 修改屏蔽
           // policyDetail: that.data.policyDetail
         })
@@ -986,14 +946,14 @@ function getservice(that) {
       } else {
         wx.showModal({
           title: '操作超时',
-          content: '',
+          content: ''
         })
-
       }
-    },
+    }
   })
 }
 
+// 分类列表
 function getItemClassify(that) {
   return new Promise(function(resolve, reject) {
     wx.request({
@@ -1004,20 +964,9 @@ function getItemClassify(that) {
         'Cookie': 'PHPSESSID=' + that.data.sessionId
       },
       success: function(res) {
-        var dataType = typeof res.data
-        if (dataType == 'string') {
-          var jsonStr = res.data;
-          jsonStr = jsonStr.replace(" ", "");
-          var temp
-          if (typeof jsonStr != 'object') {
-            jsonStr = jsonStr.replace(/\ufeff/g, ""); //重点
-            temp = JSON.parse(jsonStr);
-            res.data = temp;
-          }
-        }
         that.data.classifyArr = res.data
         resolve(that)
-      },
+      }
     })
   })
 }
