@@ -1,0 +1,46 @@
+<!--河南中银的重新绑定手机号-->
+<view class="change-body">
+  <view class="change-title">
+    <image src="/images/pic_shouji.png"></image>
+    <text>{{phone1}}</text>
+  </view>
+  <view class="change-content">
+    <form bindsubmit="formSubmit">
+      <!-- 手机号 -->
+      <view class="change-item">
+        <image src="/images/icon_phone.png" mode=""></image>
+        <view class="line"></view>
+        <view class="change-input">
+          <input placeholder-class="ph-class" type="text" placeholder="请输入您需要更换的手机号" bindinput="phoneInput" name="phone" value="{{phone}}" />
+        </view>
+      </view>
+      <!-- 验证码 -->
+      <view class="change-item">
+        <image src="/images/icon_code.png" mode=""></image>
+        <view class="line"></view>
+        <view class="change-input code-input">
+          <input placeholder-class="ph-class" type="text" placeholder="请输入验证码" name="code" value="{{formData.code}}" />
+        </view>
+        <view class="code-text" bindtap="getCodeNum">
+          <text>{{!codetime?'获取验证码':'倒计时: ' + codetime + 's'}}</text>
+        </view>
+      </view>
+      <!-- 车架号 -->
+      <view class="change-item">
+        <image src="/images/icon_chejia.png" mode=""></image>
+        <view class="line"></view>
+        <view class="change-input">
+          <input placeholder-class="ph-class" type="text" placeholder="请输入您的车架号后四位" bindinput="chejiaInput" name="chejia" value="{{chejia}}" />
+        </view>
+      </view>
+      <button class="change-btn" formType="submit">确定</button>
+    </form>
+  </view>
+</view>
+<!-- <view class="change-body">
+  <view class="jump-to">
+    <image src="/images/pic_shouji.png"></image>
+    <text class="jump-text01">绑定成功</text>
+    <text class="jump-text02">{{countDown}}秒后自动返回...</text>
+  </view>
+</view> -->

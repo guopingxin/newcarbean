@@ -28,20 +28,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('代驾', options)
     if (options.policyId){
       app.globalData.policyId = options.policyId;
     }
-    
-
-    console.log("222222",app.globalData.policyId);
     var that = this;
 
     that.setData({
       phonenumber: options.policyphone,
-      menu: options.menu
+      menu: options.menu,
+      serviceId: options.serviceId
     })
-    console.log('xxx', this.data.menu)
-
     app.globalData.phonenumber = that.data.phonenumber;
 
     that.data.policy_id = options.policy;
@@ -857,7 +854,7 @@ function order(that) {
   // 密云古北口站  40.7  lng 117.15
 
     // md5(app.globalData.secret + 'address北京叶青大厦appkey' + app.globalData.appkey + 'channel' + app.globalData.appkey + 'contactPhone' + that.data.phonenumber + 'from' + app.globalData.efrom +'gpsTypebaidulatitude40.012249longitude116.467941number1phone' + that.data.phonenumber + 'strategyId1000052strategyServiceSign7894a0136ff94096a4a9timestamp' + currenttime + 'token' + that.data.token + 'ver3.4.2' + app.globalData.secret);
-    if (that.data.menu == 1) {
+    if (that.data.serviceId == 3949) {
       md5(app.globalData.secret + 'address' + address + 'appkey' + app.globalData.appkey + 'channel' + app.globalData.appkey + 'contactPhone' + that.data.phonenumber + 'from' + app.globalData.efrom + 'gpsTypebaidulatitude' + app.globalData.location.latLong.lat + 'longitude' + app.globalData.location.latLong.long + 'number1phone' + that.data.phonenumber + 'strategyId1000123strategyServiceSign38aca56816beb721907etimestamp' + currenttime + 'token' + that.data.token + 'ver3.4.2' + app.globalData.secret);
 
       var hash = md5.create();
@@ -908,7 +905,7 @@ function order(that) {
         }
       })
 
-    } else if (that.data.menu == 2) {
+    } else if (that.data.serviceId == 4065) {
       md5(app.globalData.secret + 'address' + address + 'appkey' + app.globalData.appkey + 'channel' + app.globalData.appkey + 'contactPhone' + that.data.phonenumber + 'from' + app.globalData.efrom + 'gpsTypebaidulatitude' + app.globalData.location.latLong.lat + 'longitude' + app.globalData.location.latLong.long + 'number1phone' + that.data.phonenumber + 'strategyId1000333strategyServiceSign38aca56816beb721907etimestamp' + currenttime + 'token' + that.data.token + 'ver3.4.2' + app.globalData.secret);
 
       var hash = md5.create();

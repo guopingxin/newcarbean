@@ -166,7 +166,7 @@ Page({
 
   //优质服务
   goodservice: function (e) {
-
+    console.log('测试一下',e)
     var that = this;
 
     wx.navigateTo({

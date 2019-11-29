@@ -1,4 +1,14 @@
 <!-- 中银保险 -->
+<view wx:if="{{change}}">
+  <view class="change-body">
+    <view class="jump-to">
+      <image src="/images/pic_shouji.png"></image>
+      <text class="jump-text01">绑定成功</text>
+      <text class="jump-text02">{{countDown}}秒后自动返回...</text>
+    </view>
+  </view>
+</view>
+<view wx:if="{{!change}}">
 <view class='container' wx:if='{{hasUserInfo}}'>
   <!-- welcome中银logo -->
   <view class='showLogo' wx:if='{{!showLogo&&hasBinling}}' bindtap='cancelModal'>
@@ -38,7 +48,8 @@
           <view class='policy_center'>
             <view class='each_item'>
               <view class='item_key'>保险公司：</view>
-              <view class='item_value'>{{activeSertvice.serviceName}}</view>
+              <view class='item_value' wx:if="{{activeSertvice.service_id == 3949}}">中银保险陕西分公司</view>
+              <view class='item_value' wx:if="{{activeSertvice.service_id == 4065}}">中银保险河南分公司</view>
             </view>
             <view class='each_item'>
               <view class='item_key'>保单号：</view>
@@ -127,6 +138,16 @@
               <text>{{item.intro}}</text>
             </view>
           </view>
+          <!-- 河南中银 -->
+          <view class="each_service" wx:if="{{activeSertvice.service_id == 4065}}" bindtap="toRepairList">
+            <view class="service_content">
+              <image src="/images/repair.png"></image>
+              <text>保养维修优惠服务</text>
+              <view class='downNum'>
+                <text class='fa fa-angle-right'></text>
+              </view>
+            </view>
+          </view>
         </view>
       </view>
     </view>
@@ -181,6 +202,13 @@
           </button>
         </view>
       </form>
+        <!-- 河南中银更换手机号？ -->
+        <view wx:if="{{menu == 2}}" class="change-phone">
+          <text></text>
+          <text>收不到验证码，</text>
+          <text style="color: #b70224" bindtap="changePhone">更换手机号</text>
+          <text></text>
+        </view>
     </view>
   </view>
 
@@ -200,8 +228,8 @@
 
   <view class='modal_content'>
     <view style='font-weight:bold;text-align:center'> 条款声明</view>
-    <text wx:if="{{menu == 1}}">本服务仅为代办年检，但不承诺包过年检，另需自付300元上线费用(服务商收取)。</text>
-    <text wx:if="{{menu == 2}}">本服务仅为代办年检，但不承诺包过年检，另需自付上线费用(服务商收取)。</text>
+    <text wx:if="{{activeSertvice.service_id == 3949}}">本服务仅为代办年检，但不承诺包过年检，另需自付300元上线费用(服务商收取)。</text>
+    <text wx:if="{{activeSertvice.service_id == 4065}}">本服务仅为代办年检，但不承诺包过年检，另需自付上线费用(服务商收取)。</text>
     <view class='item'>
       <text bindtap='closeItem'>取消</text>
       <text bindtap='okItem'>确定</text>
@@ -232,6 +260,20 @@
   </view>
 </view>
 
+<!-- 河南中银（拖车、搭电救援） -->
+<view class='modal' wx:if='{{openHenanTip}}'>
+
+  <view class='modal_content'>
+    <view style='font-weight:bold;text-align:center'>温馨提示</view>
+    <text>系统自动为您寻找服务商并立即下单，是否确定使用?</text>
+
+    <view class='item'>
+      <text bindtap='closeItem1'>取消</text>
+      <text bindtap='okItem1'>确定</text>
+    </view>
+  </view>
+</view>
+
 <view class="zhongyinwhole" hidden="{{iscarclearshow}}" catchtap="bgcancel">
   <view class="serviceitem">
     <view class="xichewhole" bindtap='toserviceItem' data-server='洗车' data-classify_id='20' data-policyid="{{activeSertvice.id}}" data-num='1'>
@@ -246,3 +288,4 @@
 </view>
 
 <my-location-modal show="{{locationshow}}" bind:hide="hide" />
+</view>

@@ -274,6 +274,7 @@ page {
 
 .vertify {
   font-size: 28rpx;
+  position: relative;
 }
 
 .phone {
@@ -448,5 +449,54 @@ page {
   margin: 20rpx 10% 0 10%;
   background: #1a84ff;
   border-radius: 50rpx;
+}
+
+.change-phone {
+  width: 100%;
+  position: absolute;
+  bottom: -94rpx;
+  z-index: 999;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.change-phone text:nth-child(1) {
+  width: 112rpx;
+  height: 2rpx;
+  background: #979797;
+  margin-right: 12rpx;
+}
+
+.change-phone text:nth-child(4) {
+  width: 112rpx;
+  height: 2rpx;
+  background: #979797;
+  margin-left: 12rpx;
+}
+
+.jump-to {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.jump-to image {
+  width: 194rpx;
+  height: 220rpx;
+}
+
+.jump-to .jump-text01 {
+  margin: 32rpx 0 12rpx;
+  font-size: 36rpx;
+  color: #040405;
+}
+
+.jump-to .jump-text02 {
+  color: #777;
 }
 

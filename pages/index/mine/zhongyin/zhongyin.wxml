@@ -1,7 +1,48 @@
 <!--pages/index/mine/zhongyin/zhongyin.wxml-->
 
-<view class="container">
+<view class="container" wx:if="{{pageOne}}">
   <view class="title">订单正在生成中...</view>
   <view class="time">{{hour1}}:{{min1}}:{{second1}}</view>
-  <image src="{{imgUrl}}/car.gif"></image>
+  <image class="container-image" src="{{imgUrl}}/car.gif"></image>
+</view>
+<view class="container" wx:if="{{!pageOne}}">
+
+  <view class='pay-price'>
+    <view class='price-text'>
+      <view class='circular color1'></view>
+      <view class='circular color2'></view>
+      <text>应付金额:</text>
+    </view>
+    <view>
+      <text>RMB</text>
+      <text class='price-num'>{{serviceitemprice}}</text>
+    </view>
+  </view>
+
+  <view class='paystyletext'>
+    <view class='line'></view>
+    <view class='paytitle'>
+      <text class='paytitletext'>付款方式</text>
+      <text>TERMS OF PAYMENT</text>
+    </view>
+  </view>
+
+  <radio-group class="radiogroup" bindchange="radioChange">
+    <view class='payment'>
+      <view class="payment-left">
+        <image src='{{imgUrl}}/WeChat@2x.png' class='wechatimg'></image>
+        <text>微信支付</text>
+      </view>
+      <radio value="wx" checked="false"></radio>
+    </view>
+    <view class='payment'>
+      <view class="payment-left">
+        <image src="{{imgUrl}}/mianfei@2x.png" class='wechatimg'></image>
+        <text>免费次数({{frequency}}次)</text>
+      </view>
+      <radio value="free" checked="true"></radio>
+    </view>
+  </radio-group>
+
+  <view class='surepay' bindtap="sureToPay">确认支付</view>
 </view>

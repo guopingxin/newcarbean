@@ -31,7 +31,9 @@ Page({
     cleanflag: false,
     iscarclearshow: true,
     sysnotice: false,
-    imgUrl: 'http://www.feecgo.com/level'
+    imgUrl: 'http://www.feecgo.com/level',
+    change: false,
+    countDown: 3
   },
 
   onLoad: function(options) {
@@ -142,6 +144,23 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    if (this.data.change == true) {
+      let timer = setInterval(() => {
+        this.setData({
+          countDown: this.data.countDown - 1
+        })
+        if (this.data.countDown < 1) {
+          this.setData({
+            change: false,
+          })
+          clearInterval(timer)   
+        }
+      }, 1000)
+      this.setData({
+        timer: 300
+      })
+      clearInterval(this.data.timerCon)
+    }
     var that = this
     app.globalData.activePolicy = {}
     if (app.globalData.userInfo) {
@@ -157,6 +176,21 @@ Page({
     } else {
       that.onLoad()
     }
+  },
+
+  // 河南中银重新绑定手机号
+  changePhone() {
+    console.log(this.data.mobile, this.data.policyChangeId)
+    wx.navigateTo({
+      url: './changePhone/change?mobile=' + this.data.mobile + '&policyChangeId=' + this.data.policyChangeId,
+    })
+  },
+
+  // 河南中银跳转到维修列表
+  toRepairList() {
+    wx.navigateTo({
+      url: '/pages/services/servicestype/servicestype?goodserver=' + 7 + '&goodtitle=' + '保养'
+    })
   },
 
   //系统通知
@@ -200,7 +234,7 @@ Page({
   },
 
   toserviceItem: function(e) {
-
+    console.log(e)
     var that = this
     // console.log(e)
     app.globalData.policymoblie = e.currentTarget.dataset.mobile
@@ -209,7 +243,8 @@ Page({
     that.data.hour = currenttime.substring(11, 13)
     that.data.min = currenttime.substring(14, 16)
     that.data.sec = currenttime.substring(17)
-
+    that.data.frequency = e.currentTarget.dataset.num
+   
     if (parseInt(e.currentTarget.dataset.num) <= 0) {
       wx.showToast({
         title: '无免费使用次数,无法进行下单操作!',
@@ -221,28 +256,38 @@ Page({
 
     that.data.policy_noId = e.currentTarget.dataset.id
 
+    // 代为送检（年审，不含上线）
     if (e.currentTarget.dataset.id == "14") {
-      this.setData({
+      that.setData({
         openItem: true,
       })
       return
 
+    // 洗车
     } else if (e.currentTarget.dataset.id == '31') {
       that.setData({
         iscarclearshow: false
       })
       return
     } else {
-
-      this.setData({
-        opentip: true,
-      })
+      // 河南中银（拖车（事故救援）、拖车（故障救援）、非事故救援（搭电/换胎））
+      if (that.data.activeSertvice.service_id == 4065 && e.currentTarget.dataset.id == '21') {
+        console.log('提示指定服务商')
+        that.setData({
+          openHenanTip: true,
+        })
+      } else {
+        console.log('陕西')
+        that.setData({
+          opentip: true,
+        })
+      }
     }
 
     app.globalData.activePolicy = {
-      id: this.data.activeSertvice.id
+      id: that.data.activeSertvice.id
     }
-    this.data.ifonshow = true
+    that.data.ifonshow = true
 
     that.data.server = e.currentTarget.dataset.server
     that.data.classify_id = e.currentTarget.dataset.classify_id
@@ -252,7 +297,7 @@ Page({
     //   url: '../zhongyin/zhongyin?server=' + e.currentTarget.dataset.server + '&classifyid=' + e.currentTarget.dataset.classify_id + '&policyid=' + e.currentTarget.dataset.policyid
     // })
 
-    this.data.activeId = this.data.activeSertvice.id
+    that.data.activeId = that.data.activeSertvice.id
     app.globalData.ifPolicy = true
   },
 
@@ -279,7 +324,7 @@ Page({
                     })
                   } else {
                     wx.navigateTo({
-                      url: '../zhongyin/zhongyin?server=' + that.data.server + '&classifyid=' + that.data.classify_id + '&policyid=' + that.data.policyid
+                      url: '../zhongyin/zhongyin?server=' + that.data.server + '&classifyid=' + that.data.classify_id + '&policyid=' + that.data.policyid + '&menu=' + that.data.menu + '&serviceId=' + that.data.activeSertvice.service_id + '&frequency=' + that.data.frequency
                     })
                   }
                 }
@@ -309,7 +354,7 @@ Page({
                 })
               } else {
                 wx.navigateTo({
-                  url: '../zhongyin/zhongyin?server=' + that.data.server + '&classifyid=' + that.data.classify_id + '&policyid=' + that.data.policyid
+                  url: '../zhongyin/zhongyin?server=' + that.data.server + '&classifyid=' + that.data.classify_id + '&policyid=' + that.data.policyid + '&menu=' + that.data.menu + '&serviceId=' + that.data.activeSertvice.service_id + '&frequency=' + that.data.frequency
                 })
               }
             }
@@ -325,8 +370,6 @@ Page({
         })
       }
     } else {
-
-
       wx.getSetting({
         success: function(res) {
           if (!res.authSetting['scope.userLocation']) {
@@ -335,7 +378,7 @@ Page({
             })
           } else {
             wx.navigateTo({
-              url: '../zhongyin/zhongyin?server=' + that.data.server + '&classifyid=' + that.data.classify_id + '&policyid=' + that.data.policyid
+              url: '../zhongyin/zhongyin?server=' + that.data.server + '&classifyid=' + that.data.classify_id + '&policyid=' + that.data.policyid + '&menu=' + that.data.menu + '&serviceId=' + that.data.activeSertvice.service_id + '&frequency=' + that.data.frequency
             })
           }
         }
@@ -346,7 +389,8 @@ Page({
 
 
     this.setData({
-      opentip: false
+      opentip: false,
+      openHenanTip: false
     })
 
   },
@@ -470,7 +514,8 @@ Page({
 
   closeItem1: function() {
     this.setData({
-      opentip: false
+      opentip: false,
+      openHenanTip: false
     })
   },
 
@@ -604,7 +649,8 @@ Page({
           that.setData({
             vertifing: true,
             mobile: res.data.mobile,
-            mobile1: res.data.mobile.slice(0, 3) + '****' + res.data.mobile.slice(8, 11)
+            mobile1: res.data.mobile.slice(0, 3) + '****' + res.data.mobile.slice(8, 11),
+            policyChangeId: res.data.policy_id
           })
           that.data.timerCon = setInterval(function() {
             if (that.data.timer == 0) {
@@ -647,11 +693,13 @@ Page({
 
   // 保单切换
   changePolicy: function(e) {
-    console.log("hhhhhhhhhh", this.data.policyArr)
+    
     this.setData({
       activeItem: e.currentTarget.id,
       activeSertvice: this.data.policyArr[e.currentTarget.id]
     })
+
+    console.log("hhhhhhhhhh", this.data.policyArr, this.data.activeSertvice)
 
   },
 
@@ -705,7 +753,7 @@ Page({
     // console.log("gggggg", that.data.policyArr)
 
     wx.navigateTo({
-      url: '../../../edaijia/driving_/driving_?card_length=' + e.currentTarget.id + '&policyId=' + this.data.activeSertvice.policy_no + '&menu=' + this.data.menu + '&policy=' + this.data.activeSertvice.id + '&policyphone=' + that.data.activeSertvice.mobile + '&title=',
+      url: '../../../edaijia/driving_/driving_?card_length=' + e.currentTarget.id + '&policyId=' + this.data.activeSertvice.policy_no + '&menu=' + this.data.menu + '&serviceId=' + this.data.activeSertvice.service_id + '&policy=' + this.data.activeSertvice.id + '&policyphone=' + that.data.activeSertvice.mobile + '&title=',
     })
     this.data.activeId = this.data.activeSertvice.id
 
@@ -924,7 +972,7 @@ function getservice(that) {
           if (that.data.serviceId == item.service_id) {
             item.serviceName = res.data.name   
           } else  {
-            that.data.policyArr[0].serviceName = res.data.name
+            // that.data.policyArr[0].serviceName = res.data.name
             // that.setData({
             //   activeSertvice: that.data.policyArr[0],
             //   activeItem: 0

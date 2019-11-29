@@ -40,8 +40,8 @@
 
 <view class='used-whole'>
   <view class="used">使用须知</view>
-  <view wx:if="{{menu == 1}}">1、每次使用上限金额60元，收费标准依据E代驾官方网站为准，超出部分自付。</view>
-   <view wx:if="{{menu == 2}}">1、每次使用上限金额95元，收费标准依据E代驾官方网站为准，超出部分自付。</view>
+  <view wx:if="{{serviceId == 3949}}">1、每次使用上限金额60元，收费标准依据E代驾官方网站为准，超出部分自付。</view>
+   <view wx:if="{{serviceId == 4065}}">1、每次使用上限金额95元，收费标准依据E代驾官方网站为准，超出部分自付。</view>
   <view>2、代驾服务由E代驾提供。</view>
   <view>3、最终解释权归中银保险所有</view>
 </view>

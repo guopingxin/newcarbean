@@ -1,10 +1,10 @@
 {
-  "pages": [
-    
+  "pages": [ 
     "pages/index/index",
-    "pages/index/mine/zhongyinorder/zhongyinorder",
     "pages/index/mine/myPolicyChina/myPolicyChina",
-    "pages/index/mine/zhongyin/zhongyin",
+    "pages/index/mine/myPolicyChina/changePhone/change",
+    "pages/index/mine/zhongyinorder/zhongyinorder",
+    "pages/index/mine/zhongyin/zhongyin",    
     "pages/community/prepage/prepage",
     "pages/mine/mine",
     "pages/services/services",
