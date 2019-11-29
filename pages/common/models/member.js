@@ -141,6 +141,20 @@ class Member extends Base {
     this.request(params)
   }
 
+  // 取消代办服务订单(年审代办)
+  nianshencancelOrder(id, callback) {
+    var params = {
+      url: '/user/server/cancelCare',
+      type: 'GET',
+      data: {
+        id: id,
+      },
+      sCallback: callback
+    }
+    this.request(params)
+  }
+
+
   // 修改手机号
   modifyTel(mobile, callback) {
     var params = {
@@ -153,6 +167,56 @@ class Member extends Base {
     }
     this.request(params)
   }
+
+  //新的年审代办预约下单
+  yearCareful(that,callback){
+    var params = {
+      url: '/user/server/yearCareful',
+      type: 'POST',
+      data: {
+        name:that.data.name,
+        mobile: that.data.mobile,
+        car_no: that.data.car_no,
+        address:that.data.address,
+        take_car_address: that.data.take_car_address,
+        driver_license: that.data.driver_license,
+        vehicle_license: that.data.vehicle_license,
+        car_policy:that.data.car_policy,
+        type:that.data.type
+      },
+      sCallback: callback
+    }
+    this.request(params)
+  }
+
+  //单独年审代办详情
+  yearCareInfo(id, callback){
+    var params = {
+      url: '/user/server/yearCareInfo',
+      type: 'GET',
+      data: {
+       id:id
+      },
+      sCallback: callback
+    }
+    this.request(params)
+  }
+
+  //修改手机号(年审代办)
+  nianshenupdateCare(mobile, id, callback){
+
+    var params = {
+      url: '/user/server/updateCare ',
+      type: 'POST',
+      data: {
+        mobile: mobile,
+        id:id
+      },
+      sCallback: callback
+    }
+    this.request(params)
+  }
+  
 }
 
 export {

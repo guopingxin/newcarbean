@@ -1,7 +1,12 @@
 <view class="searching-result" wx:for="{{searchlist}}" wx:key="">
   <view class="result-item">
-  <text bind:tap="onService" wx:if="{{searchlist.length>0}}"  data-item="{{item}}">{{item.short_name}}</text>
-  <text bind:tap="onService" wx:else>没有服务商</text>
-  <view></view>
+    <block wx:if="{{searchkey=='nianshen'}}">
+      <text bind:tap="onNianshen" wx:if="{{searchlist.length>0}}" data-item="{{item.address}}">{{item.address}}</text>
+      <text bind:tap="" wx:else>没有服务商</text>
+    </block>
+    <block wx:else>
+      <text bind:tap="onService" wx:if="{{searchlist.length>0}}" data-item="{{item}}">{{item.short_name}}</text>
+      <text bind:tap="onService" wx:else>没有服务商</text>
+    </block>
   </view>
 </view>

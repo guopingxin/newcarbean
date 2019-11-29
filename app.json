@@ -1,7 +1,8 @@
 {
   "pages": [
-    
     "pages/index/index",
+    "pages/common/member/examine/examine",
+    "pages/henanzhongyin/henanzhongyin",
     "pages/index/mine/zhongyinorder/zhongyinorder",
     "pages/index/mine/myPolicyChina/myPolicyChina",
     "pages/index/mine/zhongyin/zhongyin",
@@ -77,13 +78,16 @@
     "pages/edaijia/fee/fee",
     "pages/community/baoxian/baoxian",
     "pages/services/servicesdetails/navigation/navigation",
-    "pages/index/mine/zhongyinorder/navigation/navigation"
+    "pages/index/mine/zhongyinorder/navigation/navigation",
+    "pages/common/member/examine/examinelocation/examinelocation",
+    "pages/common/member/examine/search/search",
+    "pages/common/member/examine/order/order"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "车豆",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "车豆"
   },
   "sitemapLocation": "sitemap.json",
   "tabBar": {

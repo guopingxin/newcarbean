@@ -37,6 +37,11 @@ Page({
 
     var that = this;
 
+    base.geocoder(demo,"郑州市金水区花园路40号中国银行办公主楼6-8层",res=>{
+      console.log("ddddddd",res);
+    })
+    
+
     that.data.total = [];
 
     // that.data.keywords = '洗车',

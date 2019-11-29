@@ -39,6 +39,20 @@ Component({
 
        
 
+    },
+
+    onNianshen(e){
+      var that = this;
+      var address = e.currentTarget.dataset.item;
+
+      var pages = getCurrentPages();
+      let prevPage = pages[pages.length - 3]  //上上一个页面
+      prevPage.setData({
+        fixedLossAdd: address
+      })
+      wx.navigateBack({
+        delta: 2
+      })  
     }
   }
 

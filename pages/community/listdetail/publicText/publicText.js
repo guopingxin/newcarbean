@@ -468,6 +468,7 @@ Page({
       that.upp(that, i, res => {
         that.uploadimg(i + 1, that)
       })
+      
     } else {
 
       console.log('上传惋惜和' + that.data.fileNameTemp)

@@ -1,0 +1,84 @@
+/* pages/henanzhongyin/henanzhongyin.wxss */
+.container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 32rpx;
+}
+
+.item{
+    display: flex;
+    width: 94%;
+    border-radius: 10rpx;
+    box-shadow: 0 0 2rpx 2rpx rgba(216,216,216,0.5);
+    align-items: center;
+    justify-content: space-around;
+    height: 220rpx;
+    margin-top: 3%;
+}
+
+.city{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.city image{
+    width: 90rpx;
+    height: 90rpx;
+}
+
+.cityname{
+    margin-top: 10rpx;
+}
+
+.distance{
+    font-size: 24rpx;
+    color: #ADB3B3;
+}
+
+.companyinfor{
+    display: flex;
+    flex-direction: column;
+    width: 76%;
+}
+
+.companyaddress{
+    margin-top: 3%;
+}
+
+.companyname{
+    display: flex;
+    justify-content: space-between;
+    font-family: Ebrima;
+    align-items: center;
+}
+
+.companyNavigation{
+    display: flex;
+}
+
+.navigation{
+    display: flex;
+    align-items: center;
+    width: 50%;
+    justify-content: center;
+    margin-top: 20rpx;
+}
+
+.line{
+    border-right: 1rpx solid #000;
+}
+
+.navigation image{
+    width: 28rpx;
+    height: 28rpx;
+    margin-right: 10rpx;
+}
+
+.navigation text{
+    font-size: 24rpx;
+}
+

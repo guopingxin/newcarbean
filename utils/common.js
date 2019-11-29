@@ -127,6 +127,73 @@ function handleStar(ratings) {
   }
   return tempArr
 }
+
+
+//年审代办上传图片
+function nianshengupload(that){
+  return new Promise(function (resolve, reject) {
+
+    console.log("###", that.data.mediaSrc);
+    console.log("%%%%" + that.data.fileType);
+
+    // if (that.data.mediaSrc == '') {
+
+    //   console.log("()()()()()(");
+    //   that.data.fileTypePublic = 1
+    //   that.data.fileName = ''
+    //   resolve(that)
+    //   return
+    // }
+
+    wx.uploadFile({
+      url: test + '/user/index/upload',
+      method: 'POST',
+      name: 'image',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        // 'Cookie': 'PHPSESSID=' + that.data.sessionId
+        'Cookie': 'PHPSESSID=' + app.globalData.userInfo.session_id
+      },
+      filePath: that.data.mediaSrc,
+      formData: {
+        // type: "voice",
+        key: that.data.key
+      },
+      success: function (res) {
+
+        console.log("444444444" + JSON.stringify(res.data));
+        var jsonStr = res.data;
+        jsonStr = jsonStr.replace(" ", "");
+        jsonStr = jsonStr.replace(/\ufeff/g, ""); //重点
+        res.data = JSON.parse(jsonStr);
+        if (res.data.status == 1) {
+          that.data.fileName = res.data.file_name
+          console.log(that.data.fileName)
+          resolve(that)
+        } else if (res.data.status == -2) {
+          wx.hideLoading()
+          wx.showModal({
+            title: '文件大于2M',
+            content: '',
+          })
+          reject(that)
+        }
+
+      },
+      fail: function () {
+        reject(that)
+      },
+      complete: function () {
+
+      },
+    })
+  })
+}
+
+
+
+
+
 //上传发动态的文件
 function uploadDynamic(that) {
   return new Promise(function(resolve, reject) {
@@ -671,5 +738,6 @@ module.exports = {
   requestInfor: requestInfor,
   evaluate: evaluate,
   utf16toEntities: utf16toEntities,
-  entitiesToUtf16: entitiesToUtf16
+  entitiesToUtf16: entitiesToUtf16,
+  nianshengupload:nianshengupload
 }

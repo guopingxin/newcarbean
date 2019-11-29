@@ -1,0 +1,13 @@
+<!--pages/common/member/examine/search/search.wxml-->
+<view class="container">
+  <view class="search-box">
+    <image class="icon" src="/images/icon/circle.png" />
+    <input bind:confirm="onConfirm" placeholder='搜索位置' placeholder-class='in-bar' class='bar' auto-focus="true" bindinput="onInput"/>
+    <image src="/images/icon/search.png" bind:tap="onConfirm" wx:if="{{isSearch}}"/>
+    <image src="/images/icon/icon_del_01.png" bind:tap="onCancel" wx:else/>
+  </view>
+  <view wx:if="{{searchlist.length>0}}">
+    <my-search-result searchlist="{{searchlist}}" searchkey="{{searchKeys}}"  />
+  </view>
+
+</view>
