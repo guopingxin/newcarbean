@@ -1,0 +1,180 @@
+<!--pages/henanzhongyin/henanzhongyin.wxml-->
+<view class="container">
+  <view class="item">
+    <view class="city">
+      <image src="/images/henanzhongyin.png"></image>
+      <text class="cityname">郑州</text>
+    </view>
+
+    <view class="companyinfor">
+      <view class="companyname">
+        <text>河南分公司</text>
+        <text class="distance">{{distanceArray[0]}}公里</text>
+      </view>
+      <text class="companyaddress distance">郑州市金水区花园路40号中国银行办公主楼6-8层</text>
+      <view class="companyNavigation">
+        <view class="navigation line" bindtap="navigation" data-address="郑州市金水区花园路40号中国银行办公主楼6-8层" data-name="河南分公司">
+          <image src="/images/icon_daozhequ@2x.png"></image>
+          <text>到这去</text>
+        </view>
+        <view class="navigation" bindtap="callphone" data-phone="0371-65523198">
+          <image src="/images/icon_dianhua@2x.png"></image>
+          <text>电话</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="item">
+    <view class="city">
+      <image src="/images/henanzhongyin.png"></image>
+      <text class="cityname">许昌</text>
+    </view>
+
+    <view class="companyinfor">
+      <view class="companyname">
+        <text>许昌中心支公司</text>
+        <text class="distance">{{distanceArray[1]}}公里</text>
+      </view>
+      <text class="companyaddress distance">许昌市建设路1488号中国银行3楼</text>
+      <view class="companyNavigation">
+        <view class="navigation line" bindtap="navigation" data-address="许昌市建设路1488号中国银行3楼" data-name="许昌中心支公司">
+          <image src="/images/icon_daozhequ@2x.png"></image>
+          <text>到这去</text>
+        </view>
+        <view class="navigation" bindtap="callphone" data-phone="0374-2629577">
+          <image src="/images/icon_dianhua@2x.png"></image>
+          <text>电话</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="item">
+    <view class="city">
+      <image src="/images/henanzhongyin.png"></image>
+      <text class="cityname">焦作</text>
+    </view>
+
+    <view class="companyinfor">
+      <view class="companyname">
+        <text>焦作中心支公司</text>
+        <text class="distance">{{distanceArray[2]}}公里</text>
+      </view>
+      <text class="companyaddress distance">焦作市解放东路61号中国银行山阳支行办公楼4楼</text>
+      <view class="companyNavigation">
+        <view class="navigation line" bindtap="navigation" data-address="焦作市解放东路61号中国银行山阳支行办公楼4楼" data-name="焦作中心支公司">
+          <image src="/images/icon_daozhequ@2x.png"></image>
+          <text>到这去</text>
+        </view>
+        <view class="navigation" bindtap="callphone" data-phone="0391-3288181">
+          <image src="/images/icon_dianhua@2x.png"></image>
+          <text>电话</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="item">
+    <view class="city">
+      <image src="/images/henanzhongyin.png"></image>
+      <text class="cityname">洛阳</text>
+    </view>
+
+    <view class="companyinfor">
+      <view class="companyname">
+        <text>洛阳中心支公司</text>
+        <text class="distance">{{distanceArray[3]}}公里</text>
+      </view>
+      <text class="companyaddress distance">洛阳市西工区中州中路439号中国银行洛阳分行大楼19楼</text>
+      <view class="companyNavigation">
+        <view class="navigation line" bindtap="navigation" data-address="洛阳市西工区中州中路439号中国银行洛阳分行大楼19楼" data-name="洛阳中心支公司">
+          <image src="/images/icon_daozhequ@2x.png"></image>
+          <text>到这去</text>
+        </view>
+        <view class="navigation"  bindtap="callphone" data-phone="0379-63320999">
+          <image src="/images/icon_dianhua@2x.png"></image>
+          <text>电话</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="item">
+    <view class="city">
+      <image src="/images/henanzhongyin.png"></image>
+      <text class="cityname">新乡</text>
+    </view>
+
+    <view class="companyinfor">
+      <view class="companyname">
+        <text>新乡中心支公司</text>
+        <text class="distance">{{distanceArray[4]}}公里</text>
+      </view>
+      <text class="companyaddress distance">新乡市和平大道中段1号中国银行9楼</text>
+      <view class="companyNavigation">
+        <view class="navigation line" bindtap="navigation" data-address="新乡市和平大道中段1号中国银行9楼" data-name="新乡中心支公司">
+          <image src="/images/icon_daozhequ@2x.png"></image>
+          <text>到这去</text>
+        </view>
+        <view class="navigation"  bindtap="callphone" data-phone="0373-3020286">
+          <image src="/images/icon_dianhua@2x.png"></image>
+          <text>电话</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="item">
+    <view class="city">
+      <image src="/images/henanzhongyin.png"></image>
+      <text class="cityname">南阳</text>
+    </view>
+
+    <view class="companyinfor">
+      <view class="companyname">
+        <text>南阳中心支公司</text>
+        <text class="distance">{{distanceArray[5]}}公里</text>
+      </view>
+      <text class="companyaddress distance">河南省南阳市七一路124号</text>
+      <view class="companyNavigation">
+        <view class="navigation line" bindtap="navigation" data-address="河南省南阳市七一路124号" data-name="南阳中心支公司">
+          <image src="/images/icon_daozhequ@2x.png"></image>
+          <text>到这去</text>
+        </view>
+        <view class="navigation" bindtap="callphone" data-phone="0377-63178111">
+          <image src="/images/icon_dianhua@2x.png"></image>
+          <text>电话</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="item">
+    <view class="city">
+      <image src="/images/henanzhongyin.png"></image>
+      <text class="cityname">安阳</text>
+    </view>
+
+    <view class="companyinfor">
+      <view class="companyname">
+        <text>安阳中心支公司</text>
+        <text class="distance">{{distanceArray[6]}}公里</text>
+      </view>
+      <text class="companyaddress distance">安阳市文峰大道立交桥西62号路北2层</text>
+      <view class="companyNavigation">
+        <view class="navigation line" bindtap="navigation" data-address="安阳市文峰大道立交桥西62号路北2层" data-name="安阳中心支公司">
+          <image src="/images/icon_daozhequ@2x.png"></image>
+          <text>到这去</text>
+        </view>
+        <view class="navigation" bindtap="callphone"  data-phone='0372-3699977'>
+          <image src="/images/icon_dianhua@2x.png"></image>
+          <text>电话</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

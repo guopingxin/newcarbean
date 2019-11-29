@@ -1,4 +1,6 @@
-import { Config } from '../../utils/config.js'
+import {
+  Config
+} from '../../utils/config.js'
 import {
   Car
 } from '../../pages/common/models/car.js'
@@ -17,7 +19,7 @@ Component({
     img: String,
     list: Array,
     hascar: Boolean,
-    defaultCar:Boolean,
+    defaultCar: Boolean,
     animationData: Object
   },
   data: {
@@ -26,22 +28,22 @@ Component({
     // defaultCar: false,
     carList: [],
     hostName: Config.restUrl,
-    imgUrl:'http://www.feecgo.com/level'
+    imgUrl: 'http://www.feecgo.com/level'
   },
   methods: {
     hideModal: function(e) {
       var that = this
       var animation = wx.createAnimation({
-        duration: 500,//动画的持续时间 默认400ms   数值越大，动画越慢   数值越小，动画越快
-        timingFunction: 'ease',//动画的效果 默认值是linear
+        duration: 500, //动画的持续时间 默认400ms   数值越大，动画越慢   数值越小，动画越快
+        timingFunction: 'ease', //动画的效果 默认值是linear
       })
       that.animation = animation
-      that.fadeDown();//调用隐藏动画
-      setTimeout(function () {
+      that.fadeDown(); //调用隐藏动画
+      setTimeout(function() {
         that.setData({
           show: false
         })
-      },500)   
+      }, 500)
     },
 
     toserviceItem: function(e) {
@@ -63,8 +65,8 @@ Component({
         carId: e.currentTarget.dataset.carid
       })
       // 设置默认车辆
-      carModel.bindCar(app.globalData.userInfo.id, e.currentTarget.dataset.carid, (res)=> {
-        if(res.status == 1) {
+      carModel.bindCar(app.globalData.userInfo.id, e.currentTarget.dataset.carid, (res) => {
+        if (res.status == 1) {
           that.setData({
             defaultCar: true
           })
@@ -77,8 +79,8 @@ Component({
                 if (item.default == 1) {
                   wx.setStorageSync("defaultCar", item)
                   that.triggerEvent('confirm', {
-        car_no: item.car_no
-      })
+                    car_no: item.car_no
+                  })
                 }
               })
               wx.showToast({
@@ -90,7 +92,7 @@ Component({
           })
         }
       })
-      
+
     },
     addNewCar: function(e) {
       var flag = 2
@@ -99,13 +101,13 @@ Component({
       })
       wx.setStorageSync("carFlag", flag)
     },
-    fadeDown: function () {
+    fadeDown: function() {
       this.animation.translateY(300).step()
       this.setData({
         animationData: this.animation.export(),
       })
     },
-    toAgent: function (e) {
+    toAgent: function(e) {
       // console.log(e.currentTarget.dataset.agent)
       if (e.currentTarget.dataset.type) {
         memberModel.agentOrderDetail(app.globalData.userInfo.id, e.currentTarget.dataset.type, res => {
@@ -124,6 +126,9 @@ Component({
             wx.navigateTo({
               url: '../../pages/common/member/agent/agent?content=' + e.currentTarget.dataset.agent,
             })
+
+
+
           }
         })
       } else {
@@ -131,6 +136,21 @@ Component({
           url: '../../pages/common/member/agent/agent?content=' + e.currentTarget.dataset.agent,
         })
       }
+    },
+
+    //年审代办
+    tonianshen() {
+      memberModel.yearCareInfo(app.globalData.userInfo.id, res => {
+        if (res.status == 1) {
+          wx.navigateTo({
+            url: '../../pages/common/member/examine/order/order',
+          })
+        } else {
+          wx.navigateTo({
+            url: '../../pages/common/member/examine/examine',
+          })
+        }
+      })
     }
   }
 })

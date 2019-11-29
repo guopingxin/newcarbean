@@ -17,6 +17,7 @@ var demo = new QQMapWX({
 });
 
 var app = getApp();
+var util = require('../../../utils/eutil.js')
 
 Page({
 
@@ -246,61 +247,139 @@ Page({
   pay: function() {
     var that = this;
 
-    if (that.data.serviceitemid) {
+    var currenttime = util.formatTime(new Date())
 
-      app.getSet(res => {
-        if (!res) {
-          that.setData({
-            showLoginModal: true
-          })
-        } else {
-          if (app.globalData.userInfo.mobile) {
+    that.data.hour = currenttime.substring(11, 13)
+    that.data.min = currenttime.substring(14, 16)
+    that.data.sec = currenttime.substring(17)
 
-            servicesdetails.setOrder(that, res => {
+    if (parseInt(that.data.hour) >= 9 && parseInt(that.data.hour) <= 18) {
 
-              console.log("ddd", res);
+      if (parseInt(that.data.hour) == 18) {
 
-              if (res.status == 1) {
+        if (parseInt(that.data.min) == 0) {
 
-                app.globalData.serviceorderid = res.order.id;
+          if (parseInt(that.data.sec) == 0) {
 
-                // wx.redirectTo({
-                //   url: '../payment/payment?add_time=' + res.order.add_time + '&order_no=' + res.order.order_no,
-                // })
-                wx.navigateTo({
-                  url: '../payment/payment?add_time=' + res.order.add_time + '&order_no=' + res.order.order_no,
+            if (that.data.serviceitemid) {
+
+              app.getSet(res => {
+                if (!res) {
+                  that.setData({
+                    showLoginModal: true
+                  })
+                } else {
+                  if (app.globalData.userInfo.mobile) {
+
+                    servicesdetails.setOrder(that, res => {
+
+                      console.log("ddd", res);
+
+                      if (res.status == 1) {
+
+                        app.globalData.serviceorderid = res.order.id;
+
+                        // wx.redirectTo({
+                        //   url: '../payment/payment?add_time=' + res.order.add_time + '&order_no=' + res.order.order_no,
+                        // })
+                        wx.navigateTo({
+                          url: '../payment/payment?add_time=' + res.order.add_time + '&order_no=' + res.order.order_no,
+                        })
+
+                      } else {
+
+                        wx.showToast({
+                          title: '下单失败！',
+                        })
+                      }
+                    })
+
+
+                  } else {
+
+                    // wx.navigateTo({
+                    //   url: '../../common/member/registered/registered',
+                    // })
+
+                    that.setData({
+                      usertelshow: true
+                    })
+                  }
+                }
+              })
+
+
+
+            } else {
+
+              wx.showToast({
+                title: '请选择服务项',
+              })
+            }
+          }
+        }
+      }else{
+
+        if (that.data.serviceitemid) {
+
+          app.getSet(res => {
+            if (!res) {
+              that.setData({
+                showLoginModal: true
+              })
+            } else {
+              if (app.globalData.userInfo.mobile) {
+
+                servicesdetails.setOrder(that, res => {
+
+                  console.log("ddd", res);
+
+                  if (res.status == 1) {
+
+                    app.globalData.serviceorderid = res.order.id;
+
+                    // wx.redirectTo({
+                    //   url: '../payment/payment?add_time=' + res.order.add_time + '&order_no=' + res.order.order_no,
+                    // })
+                    wx.navigateTo({
+                      url: '../payment/payment?add_time=' + res.order.add_time + '&order_no=' + res.order.order_no,
+                    })
+
+                  } else {
+
+                    wx.showToast({
+                      title: '下单失败！',
+                    })
+                  }
                 })
+
 
               } else {
 
-                wx.showToast({
-                  title: '下单失败！',
+                // wx.navigateTo({
+                //   url: '../../common/member/registered/registered',
+                // })
+
+                that.setData({
+                  usertelshow: true
                 })
               }
-            })
-
-
-          } else {
-
-            // wx.navigateTo({
-            //   url: '../../common/member/registered/registered',
-            // })
-
-            that.setData({
-              usertelshow: true
-            })
-          }
+            }
+          })
+        } else {
+          wx.showToast({
+            title: '请选择服务项',
+          })
         }
-      })
-
-
-
-    } else {
-
+      }
+    }else{
       wx.showToast({
-        title: '请选择服务项',
+        title: "服务商营业时间09:00~18:00\n请在服务时间下单!",
+        icon: 'none',
+        duration: 3000
       })
     }
+
   },
 
   //客服咨询

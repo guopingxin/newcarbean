@@ -36,7 +36,7 @@
         </view>
         <text>代办服务</text>
       </view>
-      <view class="service-item"  bind:tap="toAgent" data-Type="2"  data-Agent="年审代办">
+      <view class="service-item"  bind:tap="tonianshen" data-Type="2"  data-Agent="年审代办">
         <view class="service-item-img">
           <image src="{{imgUrl}}/nsdb.png" class='service-item-img'></image>
         </view>

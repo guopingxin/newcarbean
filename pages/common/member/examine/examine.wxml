@@ -1,0 +1,159 @@
+<!--pages/common/member/examine/examine.wxml-->
+<view class="container">
+  <view class="topbg"></view>
+  <view class="examinecontentwhole">
+    <view class="examinecontent">
+      <view class="examineservice">
+        <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/icon_zxxd@2x.png"></image>
+        <text>在线下单</text>
+      </view>
+      <image src="/images/dot.png" class="dot"></image>
+      <view class="examineservice">
+        <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/icon_smqc@2x.png"></image>
+        <text>{{text}}</text>
+      </view>
+      <image src="/images/dot.png" class="dot"></image>
+      <view class="examineservice">
+        <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/icon_zrdb@2x.png"></image>
+        <text>专人代办</text>
+      </view>
+      <image src="/images/dot.png" class="dot"></image>
+      <view class="examineservice">
+        <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/icon_dtsh@2x.png"></image>
+        <text>当天送回</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="examineinfor">
+    <view class="examineimage">
+      <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_shangxianjiance@2x.png" bindtap="onselecttype" data-type="1" wx:if="{{onselectedimg}}"></image>
+      <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_shangxianjiance_n@2x.png" bindtap="onselecttype" data-type="1" wx:else></image>
+      <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_nianjianbiao_n@2x.png" bindtap="onselecttype" data-type="2" wx:if="{{onselectedimg}}"></image>
+      <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_nianjianbiao_h@2x.png" bindtap="onselecttype" data-type="2" wx:else></image>
+    </view>
+
+    <form bindsubmit='presubmit'>
+      <view class="inputitem">
+        <text>姓名: </text>
+        <input placeholder="请输入姓名" name="name"></input>
+      </view>
+      <view class="inputitem">
+        <text>电话: </text>
+        <input placeholder="请输入电话" name="tel"></input>
+      </view>
+      <view class="inputitem">
+        <text>车牌号: </text>
+        <picker mode="selector" range='{{cartype}}' bindchange="bindOrdinaryChange" data-item='relation'>
+          <view class="picker">
+            <view>{{cartype[cartypeinddex]}}</view>
+            <view class="triangle"></view>
+          </view>
+        </picker>
+
+        <input placeholder="请输入车牌号" name="carnumber"></input>
+      </view>
+      <view class="inputitem">
+        <text>地址: </text>
+        <input placeholder="请选择车的位置" class="carposition" name="carposition" value="{{fixedLossAdd}}" disabled="true" bindtap="onselectaddress"></input>
+        <image src="/images/position1.png" class="position" bindtap="onselectaddress"></image>
+      </view>
+      <view class="inputitem">
+        <text>{{addtext}}:</text>
+        <input placeholder="请输入地址" name="detailposition"></input>
+      </view>
+
+      <view class="drivingmode">
+        <text>上传行驶证:</text>
+
+        <view class="drivingwhole">
+          <view class="shili" wx:if="{{imagescell1.path}}">
+            <image src="{{imagescell1.path}}"></image>
+            <text>行驶证正面</text>
+          </view>
+
+          <view class="driving">
+            <view class="uploadimg" bindtap="onselectimg" data-imagetype="driving">
+              <image src="/images/add.png"></image>
+              <text>点击上传</text>
+            </view>
+            <text>行驶证正面</text>
+          </view>
+
+          <view class="shili">
+            <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/drivingshili.png"></image>
+            <text>示例</text>
+          </view>
+        </view>
+
+        <text>上传行驶证副本:</text>
+
+        <view class="drivingwhole">
+          <view wx:if="{{imagescell2.path}}" class="shili">
+            <image src="{{imagescell2.path}}"></image>
+            <text>行驶证副本正面</text>
+          </view>
+
+          <view class="driving">
+            <view class="uploadimg" bindtap="onselectimg" data-imagetype="drivingcopyfront">
+              <image src="/images/add.png"></image>
+              <text>点击上传</text>
+            </view>
+            <text>行驶证副本正面</text>
+          </view>
+
+          <view class="shili">
+            <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/shili3.png"></image>
+            <text>示例</text>
+          </view>
+        </view>
+
+        <view class="drivingwhole">
+
+          <view wx:if="{{imagescell3.path}}" class="shili">
+            <image src="{{imagescell3.path}}"></image>
+            <text>行驶证副本反面</text>
+          </view>
+
+          <view class="driving">
+            <view class="uploadimg" bindtap="onselectimg"  data-imagetype="drivingcopybehind">
+              <image src="/images/add.png"></image>
+              <text>点击上传</text>
+            </view>
+            <text>行驶证副本反面</text>
+          </view>
+
+          <view class="shili">
+            <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/shili2.png"></image>
+            <text>示例</text>
+          </view>
+        </view>
+
+        <text wx:if="{{cartype[cartypeinddex]!='豫'}}">上传车辆保险单副本:</text>
+        <view class="drivingwhole" wx:if="{{cartype[cartypeinddex]!='豫'}}">
+
+          <view wx:if="{{imagescell4.path}}" class="shili">
+            <image src="{{imagescell4.path}}" class="shili4img"></image>
+            <text>上传车辆保险单副本</text>
+          </view>
+
+          <view class="driving">
+            <view class="uploadimg heighttype" bindtap="onselectimg"  data-imagetype="insurancecopy">
+              <image src="/images/add.png"></image>
+              <text>点击上传</text>
+            </view>
+            <text>车辆保险单副本</text>
+          </view>
+
+          <view class="shili">
+            <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/shili4.png" class="shili4img"></image>
+            <text>示例</text>
+          </view>
+        </view>
+      </view>
+
+      <button form-type="submit">立即预约</button>
+    </form>
+  </view>
+
+</view>

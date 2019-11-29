@@ -1,0 +1,41 @@
+/* pages/common/member/examine/search/search.wxss */
+.container{
+  width: 100%;
+}
+
+.search-box {
+  width: 750rpx;
+  height: 108rpx;
+  padding: 24rpx;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  background: #e8e8e8;
+  position: relative;
+}
+.search-box image:first-child {
+  width: 10rpx;
+  height: 10rpx;
+  position: absolute;
+  left: 60rpx;
+}
+.search-box image:last-child {
+  width: 32rpx;
+  height: 35rpx;
+  position: absolute;
+  right: 60rpx;
+  z-index: 100;
+}
+.icon {
+
+}
+.bar {
+  width: 702rpx;
+  height: 60rpx;
+  border-radius: 30rpx;
+  background: #ffffff;
+  padding-left: 58rpx;
+}
+.in-bar {
+  color: #C4C4C4;
+}
