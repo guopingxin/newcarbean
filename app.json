@@ -1,9 +1,8 @@
-﻿{
+{
   "pages": [
     "pages/index/index",
     "pages/common/member/examine/examine",
     "pages/henanzhongyin/henanzhongyin",
-    "pages/index/mine/zhongyinorder/zhongyinorder",
 
     "pages/index/mine/myPolicyChina/myPolicyChina",
     "pages/index/mine/myPolicyChina/changePhone/change",

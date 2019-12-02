@@ -410,7 +410,17 @@ Page({
         if (parseInt(that.data.min) == 0) {
 
           if (parseInt(that.data.sec) == 0) {
-
+            memberModel.yearCareInfo(app.globalData.userInfo.id, res => {
+              if (res.status == 1) {
+                wx.navigateTo({
+                  url: '../../../../pages/common/member/examine/order/order',
+                })
+              } else {
+                wx.navigateTo({
+                  url: '../../../../pages/common/member/examine/examine',
+                })
+              }
+            })
 
             // wx.getSetting({
             //   success: function (res) {
@@ -419,25 +429,25 @@ Page({
             //         locationshow: true
             //       })
             //     } else {
-            memberModel.agentOrderDetail(app.globalData.userInfo.id, 2, res => {
-              console.log(res)
-              if (res.status == 1) {
-                if (res.data.status < 2) {
-                  wx.setStorageSync("agentType", res.data.type)
-                  wx.navigateTo({
-                    url: '../../../common/member/agent/order/order',
-                  })
-                } else {
-                  wx.navigateTo({
-                    url: '../../../common/member/agent/agent?content=' + '年审代办',
-                  })
-                }
-              } else {
-                wx.navigateTo({
-                  url: '../../../common/member/agent/agent?content=' + '年审代办',
-                })
-              }
-            })
+            // memberModel.agentOrderDetail(app.globalData.userInfo.id, 2, res => {
+            //   console.log(res)
+            //   if (res.status == 1) {
+            //     if (res.data.status < 2) {
+            //       wx.setStorageSync("agentType", res.data.type)
+            //       wx.navigateTo({
+            //         url: '../../../common/member/agent/order/order',
+            //       })
+            //     } else {
+            //       wx.navigateTo({
+            //         url: '../../../common/member/agent/agent?content=' + '年审代办',
+            //       })
+            //     }
+            //   } else {
+            //     wx.navigateTo({
+            //       url: '../../../common/member/agent/agent?content=' + '年审代办',
+            //     })
+            //   }
+            // })
             //     }
             //   }
             // })
@@ -457,7 +467,17 @@ Page({
           })
         }
       } else {
-
+        memberModel.yearCareInfo(app.globalData.userInfo.id, res => {
+          if (res.status == 1) {
+            wx.navigateTo({
+              url: '../../../../pages/common/member/examine/order/order',
+            })
+          } else {
+            wx.navigateTo({
+              url: '../../../../pages/common/member/examine/examine',
+            })
+          }
+        })
         // wx.getSetting({
         //   success: function (res) {
         //     if (!res.authSetting['scope.userLocation']) {
@@ -465,25 +485,25 @@ Page({
         //         locationshow: true
         //       })
         //     } else {
-        memberModel.agentOrderDetail(app.globalData.userInfo.id, 2, res => {
-          console.log(res)
-          if (res.status == 1) {
-            if (res.data.status < 2) {
-              wx.setStorageSync("agentType", res.data.type)
-              wx.navigateTo({
-                url: '../../../common/member/agent/order/order',
-              })
-            } else {
-              wx.navigateTo({
-                url: '../../../common/member/agent/agent?content=' + '年审代办',
-              })
-            }
-          } else {
-            wx.navigateTo({
-              url: '../../../common/member/agent/agent?content=' + '年审代办',
-            })
-          }
-        })
+        // memberModel.agentOrderDetail(app.globalData.userInfo.id, 2, res => {
+        //   console.log(res)
+        //   if (res.status == 1) {
+        //     if (res.data.status < 2) {
+        //       wx.setStorageSync("agentType", res.data.type)
+        //       wx.navigateTo({
+        //         url: '../../../common/member/agent/order/order',
+        //       })
+        //     } else {
+        //       wx.navigateTo({
+        //         url: '../../../common/member/agent/agent?content=' + '年审代办',
+        //       })
+        //     }
+        //   } else {
+        //     wx.navigateTo({
+        //       url: '../../../common/member/agent/agent?content=' + '年审代办',
+        //     })
+        //   }
+        // })
         //     }
         //   }
         // })
