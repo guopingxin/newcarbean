@@ -27,10 +27,26 @@
 
   <view class="examineinfor">
     <view class="examineimage">
-      <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_shangxianjiance@2x.png" bindtap="onselecttype" data-type="1" wx:if="{{onselectedimg}}"></image>
-      <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_shangxianjiance_n@2x.png" bindtap="onselecttype" data-type="1" wx:else></image>
-      <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_nianjianbiao_n@2x.png" bindtap="onselecttype" data-type="2" wx:if="{{onselectedimg}}"></image>
-      <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_nianjianbiao_h@2x.png" bindtap="onselecttype" data-type="2" wx:else></image>
+
+      <view class="examineimageitem" wx:if="{{onselectedimg}}">
+        <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_shangxianjiance@2x.png" bindtap="onselecttype" data-type="1" ></image>
+        <icon type="success" size="20" color="white"></icon>
+      </view>
+
+      <view class="examineimageitem" wx:else>
+        <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_shangxianjiance_n@2x.png" bindtap="onselecttype" data-type="1" ></image>
+      </view>
+
+      <view class="examineimageitem" wx:if="{{onselectedimg}}">
+        <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_nianjianbiao_n@2x.png" bindtap="onselecttype" data-type="2" ></image>
+        
+      </view>
+
+      <view class="examineimageitem" wx:else>
+        <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_nianjianbiao_h@2x.png" bindtap="onselecttype" data-type="2" ></image>
+        <icon type="success" size="20" color="white"></icon>
+      </view>
+
     </view>
 
     <form bindsubmit='presubmit'>
@@ -116,7 +132,7 @@
           </view>
 
           <view class="driving">
-            <view class="uploadimg" bindtap="onselectimg"  data-imagetype="drivingcopybehind">
+            <view class="uploadimg" bindtap="onselectimg" data-imagetype="drivingcopybehind">
               <image src="/images/add.png"></image>
               <text>点击上传</text>
             </view>
@@ -138,7 +154,7 @@
           </view>
 
           <view class="driving">
-            <view class="uploadimg heighttype" bindtap="onselectimg"  data-imagetype="insurancecopy">
+            <view class="uploadimg heighttype" bindtap="onselectimg" data-imagetype="insurancecopy">
               <image src="/images/add.png"></image>
               <text>点击上传</text>
             </view>

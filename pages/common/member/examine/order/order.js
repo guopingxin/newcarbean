@@ -75,8 +75,11 @@ Page({
           title: '修改成功',
         })
         app.globalData.userInfo.mobile = e.detail.value.mobile
+        that.data.orderData.mobile = e.detail.value.mobile
+         
         that.setData({
           mobile: e.detail.value.mobile,
+          orderData: that.data.orderData,
           editMobile: false,
         })
 

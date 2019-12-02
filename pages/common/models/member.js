@@ -206,7 +206,7 @@ class Member extends Base {
   nianshenupdateCare(mobile, id, callback){
 
     var params = {
-      url: '/user/server/updateCare ',
+      url: '/user/server/updateCare',
       type: 'POST',
       data: {
         mobile: mobile,

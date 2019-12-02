@@ -215,6 +215,8 @@ Page({
     myAmapFun.getWeather({
       success: function (data) {
         console.log('成功', data, data.liveData)
+
+        app.globalData.province = data.liveData.province
         var weatherData = data.liveData.weather
         var temperature = data.liveData.temperature
         var tag
