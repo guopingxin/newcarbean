@@ -15,7 +15,7 @@
     </view>
     <view>
       <text>RMB</text>
-      <text class='price-num'>{{serviceitemprice}}</text>
+      <text class='price-num'>{{payFunction == 'free' ? '0.00' : serviceitemprice}}</text>
     </view>
   </view>
 

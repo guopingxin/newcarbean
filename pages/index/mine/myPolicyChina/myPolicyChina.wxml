@@ -139,7 +139,7 @@
             </view>
           </view>
           <!-- 河南中银 -->
-          <view class="each_service" wx:if="{{activeSertvice.service_id == 4065}}" bindtap="toRepairList">
+          <!-- <view class="each_service" wx:if="{{activeSertvice.service_id == 4065}}" bindtap="toRepairList">
             <view class="service_content">
               <image src="/images/repair.png"></image>
               <text>保养维修优惠服务</text>
@@ -147,7 +147,7 @@
                 <text class='fa fa-angle-right'></text>
               </view>
             </view>
-          </view>
+          </view> -->
         </view>
       </view>
     </view>
