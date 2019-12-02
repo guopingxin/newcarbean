@@ -9,6 +9,7 @@ import {
   Member
 } from "../../models/member.js";
 var member = new Member();
+var app =getApp();
 
 
 Page({
@@ -39,10 +40,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
-
-
-
+    if (app.globalData.province == '陕西'){
+      this.setData({
+        cartypeinddex:1
+      })
+    }
+    
   },
 
   onShow: function() {
