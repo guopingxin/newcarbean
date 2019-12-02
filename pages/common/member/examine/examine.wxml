@@ -29,23 +29,24 @@
     <view class="examineimage">
 
       <view class="examineimageitem" wx:if="{{onselectedimg}}">
-        <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_shangxianjiance@2x.png" bindtap="onselecttype" data-type="1" ></image>
+        <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_shangxianjiance@2x.png" bindtap="onselecttype" data-type="1"></image>
         <icon type="success" size="20" color="white"></icon>
       </view>
 
       <view class="examineimageitem" wx:else>
-        <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_shangxianjiance_n@2x.png" bindtap="onselecttype" data-type="1" ></image>
+        <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_shangxianjiance_n@2x.png" bindtap="onselecttype" data-type="1"></image>
       </view>
 
-      <view class="examineimageitem" wx:if="{{onselectedimg}}">
-        <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_nianjianbiao_n@2x.png" bindtap="onselecttype" data-type="2" ></image>
-        
-      </view>
+      <block wx:if="{{province == '河南'}}">
+        <view class="examineimageitem" wx:if="{{onselectedimg}}">
+          <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_nianjianbiao_n@2x.png" bindtap="onselecttype" data-type="2"></image>
+        </view>
 
-      <view class="examineimageitem" wx:else>
-        <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_nianjianbiao_h@2x.png" bindtap="onselecttype" data-type="2" ></image>
-        <icon type="success" size="20" color="white"></icon>
-      </view>
+        <view class="examineimageitem" wx:else>
+          <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/pic_nianjianbiao_h@2x.png" bindtap="onselecttype" data-type="2"></image>
+          <icon type="success" size="20" color="white"></icon>
+        </view>
+      </block>
 
     </view>
 

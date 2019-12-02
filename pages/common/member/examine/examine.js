@@ -33,7 +33,8 @@ Page({
     type: 0,
     fileNameTemp: '',
     fixedLossAdd: '',
-    addtext:"取车地址"
+    addtext:"取车地址",
+    province:"河南"
   },
 
   /**
@@ -42,7 +43,8 @@ Page({
   onLoad: function(options) {
     if (app.globalData.province == '陕西'){
       this.setData({
-        cartypeinddex:1
+        cartypeinddex:1,
+        province: app.globalData.province
       })
     }
     
