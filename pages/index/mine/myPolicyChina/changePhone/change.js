@@ -102,14 +102,30 @@ Page({
         console.log(res)
         if(res.data.status == 1) {
           app.globalData.userInfo.is_policy = 1
-
-          let pages = getCurrentPages()
-          let prevPage = pages[pages.length - 2]
-          prevPage.setData({
-            change: true
-          })
-          wx.navigateBack({
-            delta: 1
+          this.data.unionId = app.globalData.userInfo.unionId
+          wx.request({
+            url: app.globalData.hostName + '/user/login/index',
+            method: 'POST',
+            header: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: {
+              unionid: this.data.unionId,
+              source: 'chedou'
+            },
+            success: (res)=> {
+              if (res.data.status == 1) {
+                app.globalData.userInfo = res.data.data
+                let pages = getCurrentPages()
+                let prevPage = pages[pages.length - 2]
+                prevPage.setData({
+                  change: true
+                })
+                wx.navigateBack({
+                  delta: 1
+                })
+              }
+            }
           })
 
           // this.setData({
