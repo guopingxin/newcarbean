@@ -142,9 +142,16 @@ Component({
     tonianshen() {
       memberModel.yearCareInfo(app.globalData.userInfo.id, res => {
         if (res.status == 1) {
-          wx.navigateTo({
-            url: '../../pages/common/member/examine/order/order',
-          })
+          if (res.data.status == 4 || res.data.status == 5){
+            wx.navigateTo({
+              url: '../../pages/common/member/examine/examine',
+            })
+          }else{
+            wx.navigateTo({
+              url: '../../pages/common/member/examine/order/order?status=' + res.data.status,
+            })
+          }
+          
         } else {
           wx.navigateTo({
             url: '../../pages/common/member/examine/examine',

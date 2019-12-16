@@ -6,6 +6,7 @@ var md5 = require('../../../../utils/md5.js')
 var util = require('../../../../utils/eutil.js')
 var redis = require('../../../../utils/redis.js')
 var CryptoJS = require('../../../../utils/aes.js')
+var amapFile = require('../../../../utils/amap-wx.js');
 
 var test1 = getApp().globalData.hostName
 const app = getApp()
@@ -14,6 +15,12 @@ import {
   Member
 } from '../../../common/models/member.js'
 var memberModel = new Member()
+
+var markersData = {
+  latitude: '',//纬度
+  longitude: '',//经度
+  key: "c52037b5121de3cec2fde1db03bb4694"//申请的高德地图key
+};
 
 Page({
 
@@ -44,16 +51,25 @@ Page({
       type: 'gcj02',
       success: function(res) {},
     })
-    console.log('xxx',options)
+
+    var myAmapFun = new amapFile.AMapWX({ key: markersData.key })
+
+    myAmapFun.getWeather({
+      success: function(data) {
+        app.globalData.province = data.liveData.province
+      }
+    })
+    
     var menu = options.menu
     // var menu = 2
-      // 陕西中银
+    // 陕西中银
     if (menu == 1) {
+
       this.setData({
         menu: menu
       })
       // 河南中银
-    } else if (menu == 2){
+    } else if (menu == 2) {
       this.setData({
         menu: menu
       })
@@ -65,6 +81,7 @@ Page({
             hasUserInfo: false
           })
         } else {
+          
           app.getUserLogin(res, (response) => {
             app.globalData.userInfo = response.data.data
             if (response.data.status == 1) {
@@ -153,7 +170,7 @@ Page({
           this.setData({
             change: false,
           })
-          clearInterval(timer)   
+          clearInterval(timer)
         }
       }, 1000)
       this.setData({
@@ -244,7 +261,7 @@ Page({
     that.data.min = currenttime.substring(14, 16)
     that.data.sec = currenttime.substring(17)
     that.data.frequency = e.currentTarget.dataset.num
-   
+
     if (parseInt(e.currentTarget.dataset.num) <= 0) {
       wx.showToast({
         title: '无免费使用次数,无法进行下单操作!',
@@ -263,7 +280,7 @@ Page({
       })
       return
 
-    // 洗车
+      // 洗车
     } else if (e.currentTarget.dataset.id == '31') {
       that.setData({
         iscarclearshow: false
@@ -637,10 +654,8 @@ Page({
   bingingPolicy: function(e) {
     var that = this
     var reCar = /([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF])|([DF]([A-HJ-NP-Z0-9])[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1})/i
-    if (reCar.test(e.detail.value.policyNum)) {
-    } else {
-      if (e.detail.value.policyNum.length == 6) {
-      } else {
+    if (reCar.test(e.detail.value.policyNum)) {} else {
+      if (e.detail.value.policyNum.length == 6) {} else {
         this.setData({
           inforOk: true
         })
@@ -713,7 +728,7 @@ Page({
 
   // 保单切换
   changePolicy: function(e) {
-    
+
     this.setData({
       activeItem: e.currentTarget.id,
       activeSertvice: this.data.policyArr[e.currentTarget.id]
@@ -737,6 +752,7 @@ Page({
             hasUserInfo: false
           })
         } else {
+
           app.getUserLogin(res, (response) => {
             app.globalData.userInfo = response.data.data
             if (response.data.status == 1) {
@@ -988,10 +1004,10 @@ function getservice(that) {
       app.globalData.service_no = res.data.id
       if (res.data.status == 1) {
         // that.data.policyDetail.policy.service_name = res.data.name
-        that.data.policyArr.forEach((item, index)=> {
+        that.data.policyArr.forEach((item, index) => {
           if (that.data.serviceId == item.service_id) {
-            item.serviceName = res.data.name   
-          } else  {
+            item.serviceName = res.data.name
+          } else {
             // that.data.policyArr[0].serviceName = res.data.name
             // that.setData({
             //   activeSertvice: that.data.policyArr[0],

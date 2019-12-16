@@ -24,13 +24,16 @@
       <view class="content-item">
         <text>订单状态：</text>
         <text wx:if="{{orderData.status == 0}}" class="order-status">待审核</text>
-        <text wx:if="{{orderData.status == 1}}" class="order-status">进行中</text>
-        <text wx:if="{{orderData.status == 2}}" class="order-status">已完成</text>
-        <text wx:if="{{orderData.status == 3}}" class="order-status">已取消</text>
+        <text wx:if="{{orderData.status == 1}}" class="order-status">待分配</text>
+        <text wx:if="{{orderData.status == 2}}" class="order-status">已分配</text>
+        <text wx:if="{{orderData.status == 3}}" class="order-status">进行中</text>
+        <text wx:if="{{orderData.status == 4}}" class="order-status">已取消</text>
+        <text wx:if="{{orderData.status == 5}}" class="order-status">已完成</text>
       </view>
     </view>
     <view class="detail-msg">下单成功，工作人员会和您联系</view>
-    <view class="detail-btn" bind:tap="toCancelOrder">取消订单</view>
+    <view class="detail-btn" bind:tap="toCancelOrder" wx:if="{{orderData.status<3}}">取消订单</view>
+    <view class="detail-btn">取消订单</view>
   </view>
 </view>
 <view class='modal' wx:if='{{editMobile}}'>

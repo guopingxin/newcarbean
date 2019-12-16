@@ -182,7 +182,8 @@ class Member extends Base {
         driver_license: that.data.driver_license,
         vehicle_license: that.data.vehicle_license,
         car_policy:that.data.car_policy,
-        type:that.data.type
+        type:that.data.type,
+        service_id: that.data.service_id
       },
       sCallback: callback
     }

@@ -16,6 +16,15 @@ Page({
     this.setData({
       type: wx.getStorageSync("agentType")
     })
+
+    // if(options.status == 5){
+    //   setTimeout(function(){
+        
+    //     wx.redirectTo({
+    //       url: '../examine',
+    //     })
+    //   },3000)
+    // }
   },
 
   onShow: function () {

@@ -68,7 +68,7 @@
   width: 90%;
   margin: 0 5%;
   justify-content: space-between;
-  padding-bottom: 40rpx;
+  /* padding-bottom: 40rpx; */
 }
 
 .examineimage image{
@@ -86,7 +86,7 @@
 }
 
 .inputitem text{
-  margin-right: 14rpx;
+  margin-right: 24rpx;
 }
 
 .picker{

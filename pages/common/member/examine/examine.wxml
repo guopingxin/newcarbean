@@ -85,7 +85,8 @@
 
         <view class="drivingwhole">
           <view class="shili" wx:if="{{imagescell1.path}}">
-            <image src="{{imagescell1.path}}"></image>
+            <image src="{{imagescell1.path}}" bindtap="previewImage" 
+              data-src="{{imagescell1.path}}"></image>
             <text>行驶证正面</text>
           </view>
 
@@ -98,7 +99,8 @@
           </view>
 
           <view class="shili">
-            <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/drivingshili.png"></image>
+            <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/drivingshili.png" bindtap="previewImage" 
+               data-src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/drivingshili.png"></image>
             <text>示例</text>
           </view>
         </view>
@@ -107,7 +109,8 @@
 
         <view class="drivingwhole">
           <view wx:if="{{imagescell2.path}}" class="shili">
-            <image src="{{imagescell2.path}}"></image>
+            <image src="{{imagescell2.path}}" bindtap="previewImage" 
+              data-src="{{imagescell2.path}}"></image>
             <text>行驶证副本正面</text>
           </view>
 
@@ -120,7 +123,8 @@
           </view>
 
           <view class="shili">
-            <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/shili3.png"></image>
+            <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/shili3.png" bindtap="previewImage" 
+              data-src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/shili3.png"></image>
             <text>示例</text>
           </view>
         </view>
@@ -128,7 +132,8 @@
         <view class="drivingwhole">
 
           <view wx:if="{{imagescell3.path}}" class="shili">
-            <image src="{{imagescell3.path}}"></image>
+            <image src="{{imagescell3.path}}" bindtap="previewImage" 
+              data-src="{{imagescell3.path}}"></image>
             <text>行驶证副本反面</text>
           </view>
 
@@ -141,7 +146,8 @@
           </view>
 
           <view class="shili">
-            <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/shili2.png"></image>
+            <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/shili2.png" bindtap="previewImage" 
+              data-src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/shili2.png"></image>
             <text>示例</text>
           </view>
         </view>
@@ -150,7 +156,8 @@
         <view class="drivingwhole" wx:if="{{cartype[cartypeinddex]!='豫'}}">
 
           <view wx:if="{{imagescell4.path}}" class="shili">
-            <image src="{{imagescell4.path}}" class="shili4img"></image>
+            <image src="{{imagescell4.path}}" class="shili4img" bindtap="previewImage" 
+              data-src="{{imagescell4.path}}"></image>
             <text>上传车辆保险单副本</text>
           </view>
 
@@ -163,7 +170,8 @@
           </view>
 
           <view class="shili">
-            <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/shili4.png" class="shili4img"></image>
+            <image src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/shili4.png" class="shili4img" bindtap="previewImage" 
+              data-src="cloud://a-data-1a3ebf.612d-a-data-1a3ebf-1257782233/member/shili4.png"></image>
             <text>示例</text>
           </view>
         </view>

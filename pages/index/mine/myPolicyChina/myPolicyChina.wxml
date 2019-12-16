@@ -228,8 +228,8 @@
 
   <view class='modal_content'>
     <view style='font-weight:bold;text-align:center'> 条款声明</view>
-    <text wx:if="{{activeSertvice.service_id == 3949}}">本服务仅为代办年检，但不承诺包过年检，另需自付300元上线费用(服务商收取)。</text>
-    <text wx:if="{{activeSertvice.service_id == 4065}}">本服务仅为代办年检，但不承诺包过年检，另需自付上线费用(服务商收取)。</text>
+    <text wx:if="{{activeSertvice.service_id == 3949}}">本服务仅为6年以上车辆提供代办年检，但不承诺包过年检，另需自付300元上线费用(服务商收取)。</text>
+    <text wx:if="{{activeSertvice.service_id == 4065}}">本服务仅为6年以上车辆提供代办年检，但不承诺包过年检，另需自付上线费用(服务商收取)。</text>
     <view class='item'>
       <text bindtap='closeItem'>取消</text>
       <text bindtap='okItem'>确定</text>

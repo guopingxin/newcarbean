@@ -31,6 +31,11 @@ Page({
     that.data.phone = options.phone;
     that.data.projectName.num = options.project;
 
+    that.setData({
+      menu:options.menu,
+      serviceId:options.serviceId
+    })
+
     location.getLocetion(that).then(function(that){
 
       that.setData({
@@ -108,7 +113,7 @@ Page({
 
     
     wx.redirectTo({
-      url: '../driving_/driving_?title=' + this.data.etitle + '&phone=' + this.data.phone + '&card_length=' + this.data.projectName.num + "&address=" + this.data.address,
+      url: '../driving_/driving_?title=' + this.data.etitle + '&phone=' + this.data.phone + '&card_length=' + this.data.projectName.num + "&address=" + this.data.address+'&menu='+this.data.menu+'&serviceId='+this.data.serviceId
     })
   },
 
@@ -127,7 +132,7 @@ Page({
 
     wx.redirectTo({
       url: '../driving_/driving_?title=' + title + '&policyphone=' + this.data.phone + 
-        '&card_length=' + this.data.projectName.num + "&address=" + address,
+        '&card_length=' + this.data.projectName.num + "&address=" + address + '&menu=' + this.data.menu + '&serviceId=' + this.data.serviceId,
     })
   },
 

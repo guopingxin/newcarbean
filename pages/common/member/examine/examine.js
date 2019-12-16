@@ -41,11 +41,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+
     if (app.globalData.province == '陕西'){
       this.setData({
         cartypeinddex:1,
-        province: app.globalData.province
+        province: app.globalData.province,
       })
+      this.data.service_id = 4037     //陕西文虎服务商
+
+    }else{
+      this.data.service_id = 4090     //河南审车之家
     }
     
   },
@@ -279,6 +284,17 @@ Page({
       }
 
       callback(that.data.fileNameTemp)
+    })
+  },
+
+  //预览
+  previewImage(e){
+    var imgArr = [];
+    imgArr.push(e.currentTarget.dataset.src)
+
+    wx.previewImage({
+      urls: imgArr,
+      current: imgArr[0]
     })
   }
 })

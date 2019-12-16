@@ -500,7 +500,7 @@ Page({
           })
         }else{
           wx.navigateTo({
-            url: '../drivingmap/drivingmap?phone=' + this.data.phonenumber + '&project=' + this.data.projectName.num,
+            url: '../drivingmap/drivingmap?phone=' + this.data.phonenumber + '&project=' + this.data.projectName.num + '&menu=' + this.data.menu +'&serviceId='+this.data.serviceId,
           })
         }
       }
