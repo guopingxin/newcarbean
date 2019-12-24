@@ -41,6 +41,7 @@ Page({
     imgUrl: 'http://www.feecgo.com/level',
     change: false,
     countDown: 3
+    
   },
 
   onLoad: function(options) {
@@ -262,6 +263,13 @@ Page({
     that.data.sec = currenttime.substring(17)
     that.data.frequency = e.currentTarget.dataset.num
 
+    that.setData({
+      frequency: that.data.frequency
+    })
+
+
+    console.log("hHHHHHH", that.data.frequency);
+
     if (parseInt(e.currentTarget.dataset.num) <= 0) {
       wx.showToast({
         title: '无免费使用次数,无法进行下单操作!',
@@ -363,6 +371,7 @@ Page({
           }
         } else {
 
+          console.log(that.data.frequency);
           wx.getSetting({
             success: function(res) {
               if (!res.authSetting['scope.userLocation']) {
@@ -976,11 +985,45 @@ function checkPolicy(that) {
           getservice(that)
         })
       } else {
-        that.setData({
-          hasBinling: false,
-          loaded: true,
-          sysnotice: true
+
+
+        app.getAuth((res) => {
+          if (!res) {
+            that.setData({
+              hasUserInfo: false
+            })
+          } else {
+
+            app.getUserLogin(res, (response) => {
+              app.globalData.userInfo = response.data.data
+              if (response.data.status == 1) {
+                that.setData({
+                  userId: response.data.data.id,
+                  userInfo: response.data.data,
+                  hasUserInfo: true,
+                  sessionId: response.data.data.session_id
+                })
+
+                if (response.data.data.is_policy == 1) {
+                  checkPolicy(that)
+                } else {
+                  that.setData({
+                    loaded: true,
+                    hasBinling: false,
+                    sysnotice: true
+                  })
+                }
+              }
+            })
+          }
         })
+
+
+        // that.setData({
+        //   hasBinling: false,
+        //   loaded: true,
+        //   sysnotice: true
+        // })
       }
     },
   })

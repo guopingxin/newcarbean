@@ -27,9 +27,9 @@ import utils from '../../utils/util.js'
 var app = getApp();
 var amapFile = require('../../utils/amap-wx.js');
 var markersData = {
-  latitude: '',//纬度
-  longitude: '',//经度
-  key: "c52037b5121de3cec2fde1db03bb4694"//申请的高德地图key
+  latitude: '', //纬度
+  longitude: '', //经度
+  key: "c52037b5121de3cec2fde1db03bb4694" //申请的高德地图key
 };
 Page({
   data: {
@@ -49,12 +49,20 @@ Page({
     showLocationModal: false,
     restrainFlag: false,
     animationData: {},
-    imgUrl:'http://www.feecgo.com/level'
+    imgUrl: 'http://www.feecgo.com/level'
     // weatherFlag: false
     // isToExamine: true
   },
 
   onLoad: function() {
+
+
+    // {
+    //   "pagePath": "pages/community/community",
+    //   "selectedIconPath": "/images/tab/community@highlight.png",
+    //   "iconPath": "/images/tab/community.png",
+    //   "text": "社区"
+    // },
     var that = this
     // console.log('用户是否授权信息', res)
     var coupon = app.globalData.coupon
@@ -68,8 +76,8 @@ Page({
       that.setData({
         showCouponModal: false
       })
-    } 
-    if(!app.globalData.userInfo){
+    }
+    if (!app.globalData.userInfo) {
       app.getAuth((data) => {
         that.setData({
           openId: app.globalData.openId
@@ -81,7 +89,7 @@ Page({
 
           that.setData({
             // hasUserInfo: false,  //弹出新手奖励遮罩层
-            hasUser: false  //不显示个人信息
+            hasUser: false //不显示个人信息
           })
           that.calculateScrollViewHeight();
 
@@ -125,7 +133,7 @@ Page({
         }
       })
 
-    }else{
+    } else {
       that.setData({
         hasUserInfo: true,
         hasUser: true,
@@ -136,8 +144,8 @@ Page({
       that.loadInfo()
     }
     var animation = wx.createAnimation({
-      duration: 500,//动画的持续时间 默认400ms   数值越大，动画越慢   数值越小，动画越快
-      timingFunction: 'ease',//动画的效果 默认值是linear
+      duration: 500, //动画的持续时间 默认400ms   数值越大，动画越慢   数值越小，动画越快
+      timingFunction: 'ease', //动画的效果 默认值是linear
     })
     that.animation = animation
   },
@@ -150,7 +158,7 @@ Page({
         hasUser: true,
         showLoginModal: false
       })
-      console.log('基本信息',this.data.basicUserInfo)
+      console.log('基本信息', this.data.basicUserInfo)
       wx.setStorageSync("hasUserInfo", true)
       // this.getSignStatus(this.data.basicUserInfo.id)
 
@@ -159,8 +167,8 @@ Page({
       this.getBeanNum(this.data.basicUserInfo.id)
       // this.carListNum(this.data.basicUserInfo.id)
       this.carList()
-      indexModel.toLogin(app.globalData.userInfo.unionId, 'chedou',(res) => {
-        if(res.status == 1) {
+      indexModel.toLogin(app.globalData.userInfo.unionId, 'chedou', (res) => {
+        if (res.status == 1) {
           app.globalData.userInfo = res.data
           this.memberLevel(res.data.vip_lv)
 
@@ -171,7 +179,7 @@ Page({
       })
     }
   },
-  containerTap: function (res) {
+  containerTap: function(res) {
     var that = this
     // console.log("ddd",res)
     var x = res.touches[0].pageX;
@@ -179,7 +187,7 @@ Page({
     that.setData({
       rippleStyle: ''
     });
-    setTimeout(function () {
+    setTimeout(function() {
       that.setData({
         rippleStyle: 'top:' + y + 'px;left:' + x + 'px;-webkit-animation: ripple 0.4s linear;animation:ripple 0.4s linear;'
       });
@@ -190,30 +198,32 @@ Page({
     var that = this
     wx.getLocation({
       type: 'gcj02', //返回可以用于wx.openLocation的经纬度
-      success: function (res) {
-        var latitude = res.latitude//维度
-        var longitude = res.longitude//经度
-        console.log('经纬度',res);
+      success: function(res) {
+        var latitude = res.latitude //维度
+        var longitude = res.longitude //经度
+        console.log('经纬度', res);
         that.loadCity(latitude, longitude);
       }
     })
   },
   // 天气====》 高德地图获取城市
-  loadCity: function (latitude, longitude) {
+  loadCity: function(latitude, longitude) {
     var that = this
-    var myAmapFun = new amapFile.AMapWX({ key: markersData.key })
+    var myAmapFun = new amapFile.AMapWX({
+      key: markersData.key
+    })
     myAmapFun.getRegeo({
-      location: '' + longitude + ',' + latitude + '',//location的格式为'经度,纬度'
-      success: function (data) {       
+      location: '' + longitude + ',' + latitude + '', //location的格式为'经度,纬度'
+      success: function(data) {
         var city = data[0].regeocodeData.addressComponent.city.replace("市", "")
         that.setData({
           city: city
         })
       },
-      fail: function (info) { }
+      fail: function(info) {}
     })
     myAmapFun.getWeather({
-      success: function (data) {
+      success: function(data) {
         console.log('成功', data, data.liveData)
 
         app.globalData.province = data.liveData.province
@@ -244,7 +254,7 @@ Page({
         })
         that.weatherSentence(tag)
       },
-      fail: function (info) {}
+      fail: function(info) {}
     })
   },
   // 天气-------》获取天气
@@ -290,17 +300,17 @@ Page({
   // 调用天气接口----》
   weatherSentence: function(tag) {
     var that = this
-    indexModel.isWeather(tag, (res)=>{
-      if(res.status == 1) {
+    indexModel.isWeather(tag, (res) => {
+      if (res.status == 1) {
         that.setData({
           // weatherFlag: true,
           weatherMsg: res.data
         })
         indexModel.isRestrain(that.data.city, (res1) => {
-          if(res1.status == 1) {
+          if (res1.status == 1) {
             var arr = ""
             for (var i in res1.data) {
-              if(i == res1.data.length - 1) {
+              if (i == res1.data.length - 1) {
                 arr += res1.data[i]
               } else {
                 arr += res1.data[i] + ','
@@ -318,8 +328,8 @@ Page({
           }
         })
       }
-      
-    })    
+
+    })
   },
 
   // 判断天气定时器
@@ -329,18 +339,18 @@ Page({
       showWeather: true,
       showWMsg: that.data.weatherMsg
     })
-    that.timeOut(5000).then(function () {
+    that.timeOut(5000).then(function() {
       that.setData({
         showWeather: false,
         showWMsg: that.data.restrainMsg
       })
       return that.timeOut(1000)
-    }).then(function () {
+    }).then(function() {
       that.setData({
         showLimit: true
       })
       return that.timeOut(5000)
-    }).then(function () {
+    }).then(function() {
       that.setData({
         showLimit: false
       })
@@ -356,9 +366,9 @@ Page({
         that.setData({
           showLoginModal: true
         })
-      }else{
+      } else {
         wx.getSetting({
-          success: function (res) {
+          success: function(res) {
             if (!res.authSetting['scope.userLocation']) {
               that.setData({
                 showLocationModal: true
@@ -378,12 +388,12 @@ Page({
     })
 
 
-    
+
   },
 
   // 一个异步定时器的顺序执行
   timeOut: function(n) {
-    return new Promise(function (resolve) {
+    return new Promise(function(resolve) {
       setTimeout(resolve, n)
     })
   },
@@ -424,11 +434,11 @@ Page({
           }
         }
 
-      }else{
+      } else {
 
         that.setData({
           carNum: 0,
-          carid:"车豆"
+          carid: "车豆"
         })
       }
     })
@@ -617,16 +627,16 @@ Page({
           tag: 1,
           imgLogoUrl: 'cloud://a-data-1a3ebf.612d-a-data-1a3ebf/home/pic_wodefuwu.png'
         })
-        
+
         // setTimeout(function () {
-          that.fadeIn()//调用显示动画
+        that.fadeIn() //调用显示动画
         // }, 200)   
       }
     })
   },
 
   // 攻略
-  toStrategy:function(e){
+  toStrategy: function(e) {
 
     wx.navigateTo({
       url: 'gonglue/gonglue',
@@ -649,7 +659,7 @@ Page({
           imgLogoUrl: 'cloud://a-data-1a3ebf.612d-a-data-1a3ebf/home/pic_huodong.png'
         })
         // setTimeout(function () {
-          that.fadeIn()//调用显示动画
+        that.fadeIn() //调用显示动画
         // }, 200)  
       }
     })
@@ -676,10 +686,10 @@ Page({
             if (res.status == 1) {
 
               that.setData({
-                  defaultCar: true,
-                  modalList: res.data,
-                  hasCar: true
-                })
+                defaultCar: true,
+                modalList: res.data,
+                hasCar: true
+              })
 
               // if (res.data.length != 0) {
 
@@ -716,17 +726,17 @@ Page({
           })
         }
         // setTimeout(function () {
-          that.fadeIn()//调用显示动画
+        that.fadeIn() //调用显示动画
         // }, 200)  
       }
     })
   },
 
   // 底部模态框组件弹出来的动画
-  fadeIn: function () {
+  fadeIn: function() {
     this.animation.translateY(0).step()
     this.setData({
-      animationData: this.animation.export()//动画实例的export方法导出动画数据传递给组件的animation属性
+      animationData: this.animation.export() //动画实例的export方法导出动画数据传递给组件的animation属性
     })
   },
 
@@ -854,7 +864,7 @@ Page({
         that.setData({
           tipList: tipList
         })
-      }else{
+      } else {
 
         that.setData({
           tipList: []

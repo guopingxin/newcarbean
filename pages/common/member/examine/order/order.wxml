@@ -33,7 +33,7 @@
     </view>
     <view class="detail-msg">下单成功，工作人员会和您联系</view>
     <view class="detail-btn" bind:tap="toCancelOrder" wx:if="{{orderData.status<3}}">取消订单</view>
-    <view class="detail-btn">取消订单</view>
+    <view class="detail-btn color" wx:else>取消订单</view>
   </view>
 </view>
 <view class='modal' wx:if='{{editMobile}}'>

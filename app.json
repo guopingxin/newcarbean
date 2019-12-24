@@ -112,12 +112,6 @@
         "text": "服务"
       },
       {
-        "pagePath": "pages/community/community",
-        "selectedIconPath": "/images/tab/community@highlight.png",
-        "iconPath": "/images/tab/community.png",
-        "text": "社区"
-      },
-      {
         "pagePath": "pages/mine/mine",
         "selectedIconPath": "/images/tab/my@highlight.png",
         "iconPath": "/images/tab/my.png",

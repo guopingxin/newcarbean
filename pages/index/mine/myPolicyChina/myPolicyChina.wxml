@@ -228,8 +228,9 @@
 
   <view class='modal_content'>
     <view style='font-weight:bold;text-align:center'> 条款声明</view>
-    <text wx:if="{{activeSertvice.service_id == 3949}}">本服务仅为6年以上车辆提供代办年检，但不承诺包过年检，另需自付300元上线费用(服务商收取)。</text>
-    <text wx:if="{{activeSertvice.service_id == 4065}}">本服务仅为6年以上车辆提供代办年检，但不承诺包过年检，另需自付上线费用(服务商收取)。</text>
+    <!-- 本服务仅为6年以上车辆提供代办年检 -->
+    <text wx:if="{{activeSertvice.service_id == 3949}}">本服务提供代办年检，但不承诺包过年检，另需自付300元上线费用(服务商收取)。</text>
+    <text wx:if="{{activeSertvice.service_id == 4065}}">本服务提供代办年检，但不承诺包过年检，另需自付上线费用(服务商收取)。</text>
     <view class='item'>
       <text bindtap='closeItem'>取消</text>
       <text bindtap='okItem'>确定</text>
@@ -276,11 +277,11 @@
 
 <view class="zhongyinwhole" hidden="{{iscarclearshow}}" catchtap="bgcancel">
   <view class="serviceitem">
-    <view class="xichewhole" bindtap='toserviceItem' data-server='洗车' data-classify_id='20' data-policyid="{{activeSertvice.id}}" data-num='1'>
+    <view class="xichewhole" bindtap='toserviceItem' data-server='洗车' data-classify_id='20' data-policyid="{{activeSertvice.id}}" data-num='{{frequency}}' >
       <image src="{{imgUrl}}/Service-Washthecar@2x.png"></image>
       <text>清洗漆面</text>
     </view>
-    <view class="xichewhole" bindtap='toserviceItem' data-server='车辆检测' data-classify_id='17' data-policyid="{{activeSertvice.id}}" data-num='1'>
+    <view class="xichewhole" bindtap='toserviceItem' data-server='车辆检测' data-classify_id='17' data-policyid="{{activeSertvice.id}}" data-num='{{frequency}}'>
       <image src="{{imgUrl}}/icon_Service-Washthecar@2x.png"></image>
       <text>车辆检测</text>
     </view>

@@ -83,6 +83,8 @@ Page({
     that.setData({
       frequency: options.frequency
     })
+
+    console.log("GGGG",options.frequency);
     // if (parseInt(options.num) <= 0) {
 
     //   that.data.paytype = 1

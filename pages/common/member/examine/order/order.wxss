@@ -80,9 +80,9 @@
   font-size: 34rpx;
 }
 
-.detail-btn{
-  color: rgb(112, 112, 112);
-  background: rgb(211, 210, 210);
+.color{
+  color: rgb(112, 112, 112) !important;
+  background: rgb(211, 210, 210) !important;
 }
 
 .modal {
